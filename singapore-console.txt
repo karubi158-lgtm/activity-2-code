@@ -1,0 +1,284 @@
+[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01H[0m[35m[40m[2J[01;01H[=3h[2J[01;01H[0m[37m[40m  Booting `Amazon Linux (6.12.115-140.210.amzn2023.x86_64) 2023'
+
+
+
+[    0.034225] RETBleed: WARNING: Spectre v2 mitigation leaves CPU vulnerable to RETBleed attacks, data leaks possible!
+
+[    2.777822] systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+
+[    2.794498] systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+
+[    2.798819] loop: module loaded
+
+[    2.800248] systemd[1]: modprobe@loop.service: Deactivated successfully.
+
+[    2.801269] systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+
+[    2.802949] systemd[1]: Finished systemd-fsck-root.service - File System Check on Root Device.
+
+[    2.813259] systemd[1]: Started systemd-journald.service - Journal Service.
+
+[    2.858124] systemd-journald[1168]: Received client request to flush runtime journal.
+
+[    3.116986] RPC: Registered named UNIX socket transport module.
+
+[    3.117703] RPC: Registered udp transport module.
+
+[    3.118331] RPC: Registered tcp transport module.
+
+[    3.118977] RPC: Registered tcp-with-tls transport module.
+
+[    3.119710] RPC: Registered tcp NFSv4.1 backchannel transport module.
+
+[    3.289025] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+
+[    3.300202] ena 0000:00:05.0: Elastic Network Adapter (ENA) v2.17.5g
+
+[    3.311336] ena 0000:00:05.0: ENA device version: 0.10
+
+[    3.311933] ena 0000:00:05.0: ENA controller version: 0.0.1 implementation version 1
+
+[    3.311940] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+
+[    3.314235] i8042: Warning: Keylock active
+
+[    3.318173] serio: i8042 KBD port at 0x60,0x64 irq 1
+
+[    3.318744] serio: i8042 AUX port at 0x60,0x64 irq 12
+
+[    3.336527] ACPI: button: Power Button [PWRF]
+
+[    3.337115] input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+
+[    3.349648] ACPI: button: Sleep Button [SLPF]
+
+[    3.392788] ena 0000:00:05.0: LLQ is not supported Fallback to host mode policy.
+
+[    3.405743] ena 0000:00:05.0: Elastic Network Adapter (ENA) found at mem 80400000, mac addr 02:ff:c7:31:c8:8b
+
+[    3.426960] ena 0000:00:05.0 ens5: renamed from eth0
+
+[    3.490682] nvme nvme0: using unchecked data buffer
+
+[    3.613731] zram_generator::config[1729]: zram0: system has too much memory (911MB), limit is 800MB, ignoring.
+
+[    5.782806] cloud-init[1893]: Cloud-init v. 22.2.2 running 'init' at Wed, 18 Nov 2026 15:09:37 +0000. Up 5.75 seconds.
+
+[    5.860913] cloud-init[1893]: ci-info: ++++++++++++++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++++++++++++++
+
+[    5.863199] cloud-init[1893]: ci-info: +--------+------+----------------------------+---------------+--------+-------------------+
+
+[    5.865119] cloud-init[1893]: ci-info: | Device |  Up  |          Address           |      Mask     | Scope  |     Hw-Address    |
+
+[    5.867008] cloud-init[1893]: ci-info: +--------+------+----------------------------+---------------+--------+-------------------+
+
+[    5.869002] cloud-init[1893]: ci-info: |  ens5  | True |        10.1.11.144         | 255.255.255.0 | global | 02:ff:c7:31:c8:8b |
+
+[    5.870916] cloud-init[1893]: ci-info: |  ens5  | True | fe80::ff:c7ff:fe31:c88b/64 |       .       |  link  | 02:ff:c7:31:c8:8b |
+
+[    5.872840] cloud-init[1893]: ci-info: |   lo   | True |         127.0.0.1          |   255.0.0.0   |  host  |         .         |
+
+[    5.874757] cloud-init[1893]: ci-info: |   lo   | True |          ::1/128           |       .       |  host  |         .         |
+
+[    5.876678] cloud-init[1893]: ci-info: +--------+------+----------------------------+---------------+--------+-------------------+
+
+[    5.878848] cloud-init[1893]: ci-info: +++++++++++++++++++++++++++++Route IPv4 info+++++++++++++++++++++++++++++
+
+[    5.880639] cloud-init[1893]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+
+[    5.882747] cloud-init[1893]: ci-info: | Route | Destination |  Gateway  |     Genmask     | Interface | Flags |
+
+[    5.884423] cloud-init[1893]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+
+[    5.886001] cloud-init[1893]: ci-info: |   0   |   0.0.0.0   | 10.1.11.1 |     0.0.0.0     |    ens5   |   UG  |
+
+[    5.887651] cloud-init[1893]: ci-info: |   1   |   10.1.0.2  | 10.1.11.1 | 255.255.255.255 |    ens5   |  UGH  |
+
+[    5.889519] cloud-init[1893]: ci-info: |   2   |  10.1.11.0  |  0.0.0.0  |  255.255.255.0  |    ens5   |   U   |
+
+[    5.891087] cloud-init[1893]: ci-info: |   3   |  10.1.11.1  |  0.0.0.0  | 255.255.255.255 |    ens5   |   UH  |
+
+[    5.892898] cloud-init[1893]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+
+[    5.894576] cloud-init[1893]: ci-info: +++++++++++++++++++Route IPv6 info+++++++++++++++++++
+
+[    5.895940] cloud-init[1893]: ci-info: +-------+-------------+---------+-----------+-------+
+
+[    5.897387] cloud-init[1893]: ci-info: | Route | Destination | Gateway | Interface | Flags |
+
+[    5.898663] cloud-init[1893]: ci-info: +-------+-------------+---------+-----------+-------+
+
+[    5.899995] cloud-init[1893]: ci-info: |   0   |  fe80::/64  |    ::   |    ens5   |   U   |
+
+[    5.901609] cloud-init[1893]: ci-info: |   2   |    local    |    ::   |    ens5   |   U   |
+
+[    5.903181] cloud-init[1893]: ci-info: |   3   |  multicast  |    ::   |    ens5   |   U   |
+
+[    5.904820] cloud-init[1893]: ci-info: +-------+-------------+---------+-----------+-------+
+
+[    6.712276] cloud-init[1893]: Generating public/private ed25519 key pair.
+
+[    6.713609] cloud-init[1893]: Your identification has been saved in /etc/ssh/ssh_host_ed25519_key
+
+[    6.715187] cloud-init[1893]: Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub
+
+[    6.716575] cloud-init[1893]: The key fingerprint is:
+
+[    6.717379] cloud-init[1893]: SHA256:H8rc9IDNwmMmggF7yYMpVrY8/4l9Cp9aXl5U3x84TOk root@ip-10-1-11-144.ap-southeast-1.compute.internal
+
+[    6.719169] cloud-init[1893]: The key's randomart image is:
+
+[    6.720071] cloud-init[1893]: +--[ED25519 256]--+
+
+[    6.720837] cloud-init[1893]: |.  o             |
+
+[    6.721672] cloud-init[1893]: | *+..         .  |
+
+[    6.722444] cloud-init[1893]: |=.*+         +   |
+
+[    6.723338] cloud-init[1893]: |o. +o  . +  = o .|
+
+[    6.724264] cloud-init[1893]: |  . ... S *. E o.|
+
+[    6.725137] cloud-init[1893]: |     .+*.B.+  . o|
+
+[    6.726106] cloud-init[1893]: |     o =+oo..   .|
+
+[    6.726864] cloud-init[1893]: |      = * .      |
+
+[    6.727621] cloud-init[1893]: |     ..= .       |
+
+[    6.728369] cloud-init[1893]: +----[SHA256]-----+
+
+[    6.729149] cloud-init[1893]: Generating public/private ecdsa key pair.
+
+[    6.730259] cloud-init[1893]: Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+
+[    6.740242] cloud-init[1893]: Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+
+[    6.742099] cloud-init[1893]: The key fingerprint is:
+
+[    6.743135] cloud-init[1893]: SHA256:liRmJ9kAztI3T/wuZ87efHkxIAqzxcy0HBlB4VtiYC8 root@ip-10-1-11-144.ap-southeast-1.compute.internal
+
+[    6.745426] cloud-init[1893]: The key's randomart image is:
+
+[    6.746522] cloud-init[1893]: +---[ECDSA 256]---+
+
+[    6.747555] cloud-init[1893]: |    ...o.==      |
+
+[    6.748576] cloud-init[1893]: |   +  .=++       |
+
+[    6.749619] cloud-init[1893]: |  . + OE%=o.     |
+
+[    6.750606] cloud-init[1893]: |   . + @oX+. .   |
+
+[    6.751618] cloud-init[1893]: |        S.o . .  |
+
+[    6.752598] cloud-init[1893]: |       o o     o |
+
+[    6.753574] cloud-init[1893]: |        . +    .o|
+
+[    6.754497] cloud-init[1893]: |         * o  o .|
+
+[    6.755425] cloud-init[1893]: |         .+ o. . |
+
+[    6.756419] cloud-init[1893]: +----[SHA256]-----+
+
+[    7.382763] cloud-init[1981]: Cloud-init v. 22.2.2 running 'modules:config' at Wed, 18 Nov 2026 15:09:38 +0000. Up 7.29 seconds.
+
+2026/11/18 15:09:38Z: SSM Agent unable to acquire credentials: <error>no valid credentials could be retrieved for ec2 identity. Default Host Management Err: error calling RequestManagedInstanceRoleToken: operation error SSM: RequestManagedInstanceRoleToken, https response error StatusCode: 400, RequestID: 64b10837-8d51-43df-8b4a-40dee68ae884, api error AccessDeniedException: Systems Manager's instance management role is not configured for account: 136191772799</error>
+[    7.949855] cloud-init[1993]: Cloud-init v. 22.2.2 running 'modules:final' at Wed, 18 Nov 2026 15:09:39 +0000. Up 7.89 seconds.
+[    8.024799] cloud-init[1993]: + dnf install -y python3 python3-pip
+[   10.209332] cloud-init[1993]: Amazon Linux 2023 repository                     72 MB/s |  90 MB     00:01
+
+
+
+Amazon Linux 2023.12.20261117
+
+Kernel 6.12.115-140.210.amzn2023.x86_64 on an x86_64 (-)
+
+
+
+ip-10-1-11-144 login: [   31.169771] cloud-init[1993]: Amazon Linux 2023 Kernel Livepatch repository   1.0 MB/s | 122 kB     00:00
+
+[   33.222510] cloud-init[1993]: Package python3-3.9.25-1.amzn2023.0.11.x86_64 is already installed.
+
+[   33.363974] cloud-init[1993]: Dependencies resolved.
+
+[   33.456501] cloud-init[1993]: ================================================================================
+
+[   33.458500] cloud-init[1993]:  Package             Arch      Version                     Repository      Size
+
+[   33.458673] cloud-init[1993]: ================================================================================
+
+[   33.458883] cloud-init[1993]: Installing:
+
+[   33.459101] cloud-init[1993]:  python3-pip         noarch    21.3.1-2.amzn2023.0.22      amazonlinux    1.8 M
+
+[   33.459323] cloud-init[1993]: Installing weak dependencies:
+
+[   33.460253] cloud-init[1993]:  libxcrypt-compat    x86_64    4.4.33-7.amzn2023           amazonlinux     92 k
+
+[   33.460395] cloud-init[1993]: Transaction Summary
+
+[   33.460616] cloud-init[1993]: ================================================================================
+
+[   33.460832] cloud-init[1993]: Install  2 Packages
+
+[   33.461139] cloud-init[1993]: Total download size: 1.9 M
+
+[   33.461299] cloud-init[1993]: Installed size: 11 M
+
+[   33.461512] cloud-init[1993]: Downloading Packages:
+
+[   33.548660] cloud-init[1993]: (1/2): libxcrypt-compat-4.4.33-7.amzn2023.x86_6 2.8 MB/s |  92 kB     00:00
+
+[   33.611301] cloud-init[1993]: (2/2): python3-pip-21.3.1-2.amzn2023.0.22.noarc  19 MB/s | 1.8 MB     00:00
+
+[   33.613371] cloud-init[1993]: --------------------------------------------------------------------------------
+
+[   33.615052] cloud-init[1993]: Total                                            12 MB/s | 1.9 MB     00:00
+
+[   33.720465] cloud-init[1993]: Running transaction check
+
+[   33.783145] cloud-init[1993]: Transaction check succeeded.
+
+[   33.784400] cloud-init[1993]: Running transaction test
+
+[   34.212768] cloud-init[1993]: Transaction test succeeded.
+
+[   34.214061] cloud-init[1993]: Running transaction
+
+[   34.342783] cloud-init[1993]:   Preparing        :                                                        1/1
+
+[   35.135099] cloud-init[1993]:   Installing       : libxcrypt-compat-4.4.33-7.amzn2023.x86_64              1/2
+
+[   35.180561] cloud-init[1993]:   Installing       : python3-pip-21.3.1-2.amzn2023.0.22.noarch              2/2
+
+[   35.671945] cloud-init[1993]:   Running scriptlet: python3-pip-21.3.1-2.amzn2023.0.22.noarch              2/2
+
+[   35.672220] cloud-init[1993]:   Verifying        : libxcrypt-compat-4.4.33-7.amzn2023.x86_64              1/2
+
+[   36.141810] cloud-init[1993]:   Verifying        : python3-pip-21.3.1-2.amzn2023.0.22.noarch              2/2
+
+[   36.143579] cloud-init[1993]: Installed:
+
+[   36.144261] cloud-init[1993]:   libxcrypt-compat-4.4.33-7.amzn2023.x86_64
+
+[   36.145401] cloud-init[1993]:   python3-pip-21.3.1-2.amzn2023.0.22.noarch
+
+[   36.146520] cloud-init[1993]: Complete!
+
+[   36.283536] cloud-init[1993]: + mkdir -p /opt/storage-app
+
+[   36.287983] cloud-init[1993]: + python3 -m venv /opt/storage-app/venv
+
+[   39.316966] cloud-init[1993]: + /opt/storage-app/venv/bin/pip install --upgrade pip
+
+[   39.992391] cloud-init[1993]: Requirement already satisfied: pip in /opt/storage-app/venv/lib/python3.9/site-packages (21.3.1)
+
+[   40.655449] cloud-init[1993]: Collecting pip
+
+[   42.403291] cloud-init[1993]:   Downloading pip-26.0.1-py3-none-any.whl (1.8 MB)
+
+

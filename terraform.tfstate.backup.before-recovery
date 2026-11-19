@@ -1,0 +1,4383 @@
+{
+  "version": 4,
+  "terraform_version": "1.15.8",
+  "serial": 73,
+  "lineage": "060c99bd-49f6-e66c-d06c-8f9e5111c6ad",
+  "outputs": {
+    "audit_s3_bucket": {
+      "value": "self-healing-storage-audit-2729487b",
+      "type": "string"
+    },
+    "lambda_function_name": {
+      "value": "self-healing-storage-health-check",
+      "type": "string"
+    },
+    "mumbai_application_url": {
+      "value": "http://selfheal-ap-south-1-alb-2117137215.ap-south-1.elb.amazonaws.com",
+      "type": "string"
+    },
+    "mumbai_target_group_arn": {
+      "value": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+      "type": "string"
+    },
+    "primary_s3_bucket": {
+      "value": "self-healing-storage-mumbai-2729487b",
+      "type": "string"
+    },
+    "route53_application_url": {
+      "value": "Route 53 not configured",
+      "type": "string"
+    },
+    "secondary_s3_bucket": {
+      "value": "self-healing-storage-singapore-2729487b",
+      "type": "string"
+    },
+    "singapore_application_url": {
+      "value": "http://selfheal-ap-southeast-1-alb-1250396488.ap-southeast-1.elb.amazonaws.com",
+      "type": "string"
+    },
+    "singapore_target_group_arn": {
+      "value": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+      "type": "string"
+    },
+    "sns_topic_arn": {
+      "value": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "archive_file",
+      "name": "lambda_package",
+      "provider": "provider[\"registry.terraform.io/hashicorp/archive\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "exclude_symlink_directories": null,
+            "excludes": null,
+            "id": "954f8011c60202f405624bb01c48f6a599072009",
+            "output_base64sha256": "MldX7vgpEj7T6O3PxxKOpMkyHMzxyaKi0pzRJdbkE8o=",
+            "output_base64sha512": "Qe9mBAIeRpP2oqeoEKwttGxABfnXtafChMuS/GiQWHUgeJEPJtDeWSeYYlH6M7IQcPg6QO2QgS4vwa8+a/ovjQ==",
+            "output_file_mode": null,
+            "output_md5": "855163e62a72b08232f640a31feb5f61",
+            "output_path": "./lambda/storage_health_check.zip",
+            "output_sha": "954f8011c60202f405624bb01c48f6a599072009",
+            "output_sha256": "325757eef829123ed3e8edcfc7128ea4c9321cccf1c9a2a2d29cd125d6e413ca",
+            "output_sha512": "41ef6604021e4693f6a2a7a810ac2db46c4005f9d7b5a7c284cb92fc689058752078910f26d0de5927986251fa33b21070f83a40ed90812e2fc1af3e6bfa2f8d",
+            "output_size": 724,
+            "source": [],
+            "source_content": null,
+            "source_content_filename": null,
+            "source_dir": null,
+            "source_file": "./lambda/storage_health_check.py",
+            "type": "zip"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "136191772799",
+            "arn": "arn:aws:iam::136191772799:user/Rubikaiam",
+            "id": "136191772799",
+            "user_id": "AIDAR7NNJRB7SHJ4ZABIQ"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudtrail",
+      "name": "project_trail",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "advanced_event_selector": [],
+            "arn": "arn:aws:cloudtrail:ap-south-1:136191772799:trail/self-healing-storage-trail",
+            "cloud_watch_logs_group_arn": "",
+            "cloud_watch_logs_role_arn": "",
+            "enable_log_file_validation": false,
+            "enable_logging": true,
+            "event_selector": [],
+            "home_region": "ap-south-1",
+            "id": "arn:aws:cloudtrail:ap-south-1:136191772799:trail/self-healing-storage-trail",
+            "include_global_service_events": true,
+            "insight_selector": [],
+            "is_multi_region_trail": true,
+            "is_organization_trail": false,
+            "kms_key_id": "",
+            "name": "self-healing-storage-trail",
+            "recursive_logging": true,
+            "region": "ap-south-1",
+            "s3_bucket_name": "self-healing-storage-audit-2729487b",
+            "s3_key_prefix": "",
+            "sns_topic_arn": "",
+            "sns_topic_name": "",
+            "tags": null,
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:cloudtrail:ap-south-1:136191772799:trail/self-healing-storage-trail"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_s3_bucket.cloudtrail_bucket",
+            "aws_s3_bucket_policy.cloudtrail_policy",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_rule",
+      "name": "health_schedule",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:events:ap-south-1:136191772799:rule/self-healing-storage-health-schedule",
+            "description": "Run storage health check every five minutes",
+            "event_bus_name": "default",
+            "event_pattern": null,
+            "force_destroy": false,
+            "id": "self-healing-storage-health-schedule",
+            "is_enabled": true,
+            "name": "self-healing-storage-health-schedule",
+            "name_prefix": "",
+            "region": "ap-south-1",
+            "role_arn": "",
+            "schedule_expression": "rate(5 minutes)",
+            "state": "ENABLED",
+            "tags": null,
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-health-schedule",
+            "region": "ap-south-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_event_target",
+      "name": "lambda_target",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "appsync_target": [],
+            "arn": "arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check",
+            "batch_target": [],
+            "dead_letter_config": [],
+            "ecs_target": [],
+            "event_bus_name": "default",
+            "force_destroy": false,
+            "http_target": [],
+            "id": "self-healing-storage-health-schedule-StorageHealthCheck",
+            "input": "",
+            "input_path": "",
+            "input_transformer": [],
+            "kinesis_target": [],
+            "redshift_target": [],
+            "region": "ap-south-1",
+            "retry_policy": [],
+            "role_arn": "",
+            "rule": "self-healing-storage-health-schedule",
+            "run_command_targets": [],
+            "sagemaker_pipeline_target": [],
+            "sqs_target": [],
+            "target_id": "StorageHealthCheck"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "event_bus_name": "default",
+            "region": "ap-south-1",
+            "rule": "self-healing-storage-health-schedule",
+            "target_id": "StorageHealthCheck"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_cloudwatch_event_rule.health_schedule",
+            "aws_cloudwatch_log_group.lambda_logs",
+            "aws_iam_role.lambda_role",
+            "aws_iam_role_policy.lambda_policy",
+            "aws_lambda_function.health_check",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_sns_topic.alerts",
+            "data.archive_file.lambda_package",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_log_group",
+      "name": "lambda_logs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:logs:ap-south-1:136191772799:log-group:/aws/lambda/self-healing-storage-health-check",
+            "deletion_protection_enabled": false,
+            "id": "/aws/lambda/self-healing-storage-health-check",
+            "kms_key_id": "",
+            "log_group_class": "STANDARD",
+            "name": "/aws/lambda/self-healing-storage-health-check",
+            "name_prefix": "",
+            "region": "ap-south-1",
+            "retention_in_days": 7,
+            "skip_destroy": false,
+            "tags": null,
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "/aws/lambda/self-healing-storage-health-check",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudwatch_metric_alarm",
+      "name": "lambda_errors",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "actions_enabled": true,
+            "alarm_actions": [
+              "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts"
+            ],
+            "alarm_description": "Lambda health-check function errors",
+            "alarm_name": "self-healing-storage-lambda-errors",
+            "arn": "arn:aws:cloudwatch:ap-south-1:136191772799:alarm:self-healing-storage-lambda-errors",
+            "comparison_operator": "GreaterThanOrEqualToThreshold",
+            "datapoints_to_alarm": 0,
+            "dimensions": {
+              "FunctionName": "self-healing-storage-health-check"
+            },
+            "evaluate_low_sample_count_percentiles": "",
+            "evaluation_criteria": [],
+            "evaluation_interval": 0,
+            "evaluation_periods": 1,
+            "evaluation_window": [],
+            "extended_statistic": "",
+            "id": "self-healing-storage-lambda-errors",
+            "insufficient_data_actions": null,
+            "metric_name": "Errors",
+            "metric_query": [],
+            "namespace": "AWS/Lambda",
+            "ok_actions": null,
+            "period": 300,
+            "region": "ap-south-1",
+            "statistic": "Sum",
+            "tags": null,
+            "tags_all": {},
+            "threshold": 1,
+            "threshold_metric_id": "",
+            "treat_missing_data": "missing",
+            "unit": "",
+            "warm_up_configuration": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "alarm_name": "self-healing-storage-lambda-errors",
+            "region": "ap-south-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_cloudwatch_log_group.lambda_logs",
+            "aws_iam_role.lambda_role",
+            "aws_iam_role_policy.lambda_policy",
+            "aws_lambda_function.health_check",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_sns_topic.alerts",
+            "data.archive_file.lambda_package",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_instance_profile",
+      "name": "ec2_profile",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::136191772799:instance-profile/self-healing-storage-ec2-profile",
+            "create_date": "2026-11-17T04:36:20Z",
+            "id": "self-healing-storage-ec2-profile",
+            "name": "self-healing-storage-ec2-profile",
+            "name_prefix": "",
+            "path": "/",
+            "role": "self-healing-storage-ec2-role",
+            "tags": null,
+            "tags_all": {},
+            "unique_id": "AIPAR7NNJRB7RCVUP4JON"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-ec2-profile"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ec2_role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "ec2_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::136191772799:role/self-healing-storage-ec2-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ec2.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-11-17T04:36:19Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "self-healing-storage-ec2-role",
+            "inline_policy": [],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "self-healing-storage-ec2-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": null,
+            "tags_all": {},
+            "unique_id": "AROAR7NNJRB7TLS2QJTDP"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-ec2-role"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "lambda_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::136191772799:role/self-healing-storage-lambda-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-11-17T04:36:19Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "self-healing-storage-lambda-role",
+            "inline_policy": [],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "self-healing-storage-lambda-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": null,
+            "tags_all": {},
+            "unique_id": "AROAR7NNJRB72JUFGGMZQ"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-lambda-role"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "replication_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::136191772799:role/self-healing-storage-replication-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"s3.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-11-17T04:36:19Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "self-healing-storage-replication-role",
+            "inline_policy": [],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "self-healing-storage-replication-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": null,
+            "tags_all": {},
+            "unique_id": "AROAR7NNJRB7TCYJDV677"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-replication-role"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "ec2_s3_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "self-healing-storage-ec2-role:self-healing-storage-ec2-s3-policy",
+            "name": "self-healing-storage-ec2-s3-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::self-healing-storage-mumbai-2729487b\",\"arn:aws:s3:::self-healing-storage-singapore-2729487b\"]},{\"Action\":[\"s3:GetObject\",\"s3:PutObject\",\"s3:DeleteObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::self-healing-storage-mumbai-2729487b/*\",\"arn:aws:s3:::self-healing-storage-singapore-2729487b/*\"]}]}",
+            "role": "self-healing-storage-ec2-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-ec2-s3-policy",
+            "role": "self-healing-storage-ec2-role"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.ec2_role",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "lambda_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "self-healing-storage-lambda-role:self-healing-storage-lambda-policy",
+            "name": "self-healing-storage-lambda-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:ListBucket\",\"s3:GetBucketLocation\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::self-healing-storage-mumbai-2729487b\",\"arn:aws:s3:::self-healing-storage-singapore-2729487b\"]},{\"Action\":[\"sns:Publish\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts\"},{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:logs:ap-south-1:136191772799:*\"}]}",
+            "role": "self-healing-storage-lambda-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-lambda-policy",
+            "role": "self-healing-storage-lambda-role"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.lambda_role",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_sns_topic.alerts",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "replication_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "self-healing-storage-replication-role:self-healing-storage-replication-policy",
+            "name": "self-healing-storage-replication-policy",
+            "name_prefix": "",
+            "policy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Action\":[\"s3:GetReplicationConfiguration\",\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::self-healing-storage-mumbai-2729487b\"},{\"Action\":[\"s3:GetObjectVersionForReplication\",\"s3:GetObjectVersionAcl\",\"s3:GetObjectVersionTagging\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::self-healing-storage-mumbai-2729487b/*\"},{\"Action\":[\"s3:ReplicateObject\",\"s3:ReplicateDelete\",\"s3:ReplicateTags\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::self-healing-storage-singapore-2729487b/*\"}]}",
+            "role": "self-healing-storage-replication-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-replication-policy",
+            "role": "self-healing-storage-replication-role"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.replication_role",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_function",
+      "name": "health_check",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "architectures": [
+              "x86_64"
+            ],
+            "arn": "arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check",
+            "capacity_provider_config": [],
+            "code_sha256": "MldX7vgpEj7T6O3PxxKOpMkyHMzxyaKi0pzRJdbkE8o=",
+            "code_signing_config_arn": "",
+            "dead_letter_config": [],
+            "description": "",
+            "durable_config": [],
+            "environment": [
+              {
+                "variables": {
+                  "PRIMARY_BUCKET": "self-healing-storage-mumbai-2729487b",
+                  "SECONDARY_BUCKET": "self-healing-storage-singapore-2729487b",
+                  "SNS_TOPIC_ARN": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts"
+                }
+              }
+            ],
+            "ephemeral_storage": [
+              {
+                "size": 512
+              }
+            ],
+            "file_system_config": [],
+            "filename": "./lambda/storage_health_check.zip",
+            "function_name": "self-healing-storage-health-check",
+            "handler": "storage_health_check.lambda_handler",
+            "id": "self-healing-storage-health-check",
+            "image_config": [],
+            "image_uri": "",
+            "invoke_arn": "arn:aws:apigateway:ap-south-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check/invocations",
+            "kms_key_arn": "",
+            "last_modified": "2026-11-17T04:36:32.466+0000",
+            "layers": null,
+            "logging_config": [
+              {
+                "application_log_level": "",
+                "log_format": "Text",
+                "log_group": "/aws/lambda/self-healing-storage-health-check",
+                "system_log_level": ""
+              }
+            ],
+            "memory_size": 128,
+            "package_type": "Zip",
+            "publish": false,
+            "publish_to": null,
+            "qualified_arn": "arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check:$LATEST",
+            "qualified_invoke_arn": "arn:aws:apigateway:ap-south-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check:$LATEST/invocations",
+            "region": "ap-south-1",
+            "replace_security_groups_on_destroy": null,
+            "replacement_security_group_ids": null,
+            "reserved_concurrent_executions": -1,
+            "response_streaming_invoke_arn": "arn:aws:apigateway:ap-south-1:lambda:path/2021-11-15/functions/arn:aws:lambda:ap-south-1:136191772799:function:self-healing-storage-health-check/response-streaming-invocations",
+            "role": "arn:aws:iam::136191772799:role/self-healing-storage-lambda-role",
+            "runtime": "python3.12",
+            "s3_bucket": null,
+            "s3_key": null,
+            "s3_object_version": null,
+            "signing_job_arn": "",
+            "signing_profile_version_arn": "",
+            "skip_destroy": false,
+            "snap_start": [],
+            "source_code_hash": "MldX7vgpEj7T6O3PxxKOpMkyHMzxyaKi0pzRJdbkE8o=",
+            "source_code_size": 724,
+            "source_kms_key_arn": "",
+            "tags": null,
+            "tags_all": {},
+            "tenancy_config": [],
+            "timeout": 30,
+            "timeouts": null,
+            "tracing_config": [
+              {
+                "mode": "PassThrough"
+              }
+            ],
+            "use_resource_timeout_for_propagation": null,
+            "version": "$LATEST",
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "function_name": "self-healing-storage-health-check",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_cloudwatch_log_group.lambda_logs",
+            "aws_iam_role.lambda_role",
+            "aws_iam_role_policy.lambda_policy",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_sns_topic.alerts",
+            "data.archive_file.lambda_package",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lambda_permission",
+      "name": "allow_eventbridge",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "action": "lambda:InvokeFunction",
+            "event_source_token": null,
+            "function_name": "self-healing-storage-health-check",
+            "function_url_auth_type": null,
+            "id": "AllowEventBridgeInvoke",
+            "invoked_via_function_url": null,
+            "principal": "events.amazonaws.com",
+            "principal_org_id": null,
+            "qualifier": "",
+            "region": "ap-south-1",
+            "source_account": null,
+            "source_arn": "arn:aws:events:ap-south-1:136191772799:rule/self-healing-storage-health-schedule",
+            "statement_id": "AllowEventBridgeInvoke",
+            "statement_id_prefix": "",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "function_name": "self-healing-storage-health-check",
+            "qualifier": null,
+            "region": "ap-south-1",
+            "statement_id": "AllowEventBridgeInvoke"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJyZWFkIjozMDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "aws_cloudwatch_event_rule.health_schedule",
+            "aws_cloudwatch_log_group.lambda_logs",
+            "aws_iam_role.lambda_role",
+            "aws_iam_role_policy.lambda_policy",
+            "aws_lambda_function.health_check",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_sns_topic.alerts",
+            "data.archive_file.lambda_package",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "cloudtrail_bucket",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::self-healing-storage-audit-2729487b",
+            "bucket": "self-healing-storage-audit-2729487b",
+            "bucket_domain_name": "self-healing-storage-audit-2729487b.s3.amazonaws.com",
+            "bucket_namespace": "global",
+            "bucket_prefix": "",
+            "bucket_region": "ap-south-1",
+            "bucket_regional_domain_name": "self-healing-storage-audit-2729487b.s3.ap-south-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": true,
+            "grant": [
+              {
+                "id": "a5e3334c9c6c1ba502ca0f26e165412196ef34ab5f958524b5ca113dad6b1dab",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z11RGJOFQNVJUP",
+            "id": "self-healing-storage-audit-2729487b",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "ap-south-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-audit-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "primary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::self-healing-storage-mumbai-2729487b",
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "bucket_domain_name": "self-healing-storage-mumbai-2729487b.s3.amazonaws.com",
+            "bucket_namespace": "global",
+            "bucket_prefix": "",
+            "bucket_region": "ap-south-1",
+            "bucket_regional_domain_name": "self-healing-storage-mumbai-2729487b.s3.ap-south-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "a5e3334c9c6c1ba502ca0f26e165412196ef34ab5f958524b5ca113dad6b1dab",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z11RGJOFQNVJUP",
+            "id": "self-healing-storage-mumbai-2729487b",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "ap-south-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "secondary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::self-healing-storage-singapore-2729487b",
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "bucket_domain_name": "self-healing-storage-singapore-2729487b.s3.amazonaws.com",
+            "bucket_namespace": "global",
+            "bucket_prefix": "",
+            "bucket_region": "ap-southeast-1",
+            "bucket_regional_domain_name": "self-healing-storage-singapore-2729487b.s3.ap-southeast-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": false,
+            "grant": [
+              {
+                "id": "a5e3334c9c6c1ba502ca0f26e165412196ef34ab5f958524b5ca113dad6b1dab",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3O0J2DXBE1FTB",
+            "id": "self-healing-storage-singapore-2729487b",
+            "lifecycle_rule": [],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "ap-southeast-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": false,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_policy",
+      "name": "cloudtrail_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-audit-2729487b",
+            "id": "self-healing-storage-audit-2729487b",
+            "policy": "{\"Statement\":[{\"Action\":\"s3:GetBucketAcl\",\"Condition\":{\"StringEquals\":{\"aws:SourceArn\":\"arn:aws:cloudtrail:ap-south-1:136191772799:trail/self-healing-storage-trail\"}},\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudtrail.amazonaws.com\"},\"Resource\":\"arn:aws:s3:::self-healing-storage-audit-2729487b\",\"Sid\":\"AWSCloudTrailAclCheck\"},{\"Action\":\"s3:PutObject\",\"Condition\":{\"StringEquals\":{\"aws:SourceArn\":\"arn:aws:cloudtrail:ap-south-1:136191772799:trail/self-healing-storage-trail\",\"s3:x-amz-acl\":\"bucket-owner-full-control\"}},\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"cloudtrail.amazonaws.com\"},\"Resource\":\"arn:aws:s3:::self-healing-storage-audit-2729487b/AWSLogs/136191772799/*\",\"Sid\":\"AWSCloudTrailWrite\"}],\"Version\":\"2012-10-17\"}",
+            "region": "ap-south-1"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-audit-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.cloudtrail_bucket",
+            "data.aws_caller_identity.current",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "cloudtrail_block",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "bucket": "self-healing-storage-audit-2729487b",
+            "id": "self-healing-storage-audit-2729487b",
+            "ignore_public_acls": true,
+            "region": "ap-south-1",
+            "restrict_public_buckets": true,
+            "skip_destroy": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-audit-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.cloudtrail_bucket",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "primary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "id": "self-healing-storage-mumbai-2729487b",
+            "ignore_public_acls": true,
+            "region": "ap-south-1",
+            "restrict_public_buckets": true,
+            "skip_destroy": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.primary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "secondary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "id": "self-healing-storage-singapore-2729487b",
+            "ignore_public_acls": true,
+            "region": "ap-southeast-1",
+            "restrict_public_buckets": true,
+            "skip_destroy": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "region": "ap-southeast-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_replication_configuration",
+      "name": "replication",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "id": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1",
+            "role": "arn:aws:iam::136191772799:role/self-healing-storage-replication-role",
+            "rule": [
+              {
+                "delete_marker_replication": [
+                  {
+                    "status": "Enabled"
+                  }
+                ],
+                "destination": [
+                  {
+                    "access_control_translation": [],
+                    "account": "",
+                    "bucket": "arn:aws:s3:::self-healing-storage-singapore-2729487b",
+                    "encryption_configuration": [],
+                    "metrics": [],
+                    "replication_time": [],
+                    "storage_class": "STANDARD"
+                  }
+                ],
+                "existing_object_replication": [],
+                "filter": [
+                  {
+                    "and": [],
+                    "prefix": null,
+                    "tag": []
+                  }
+                ],
+                "id": "mumbai-to-singapore",
+                "prefix": "",
+                "priority": 0,
+                "source_selection_criteria": [],
+                "status": "Enabled"
+              }
+            ],
+            "token": null
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "token"
+              }
+            ]
+          ],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_role.replication_role",
+            "aws_iam_role_policy.replication_policy",
+            "aws_s3_bucket.primary",
+            "aws_s3_bucket.secondary",
+            "aws_s3_bucket_versioning.primary",
+            "aws_s3_bucket_versioning.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "cloudtrail_encryption",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-audit-2729487b",
+            "expected_bucket_owner": "",
+            "id": "self-healing-storage-audit-2729487b",
+            "region": "ap-south-1",
+            "rule": [
+              {
+                "apply_server_side_encryption_by_default": [
+                  {
+                    "kms_master_key_id": "",
+                    "sse_algorithm": "AES256"
+                  }
+                ],
+                "blocked_encryption_types": [
+                  "SSE-C"
+                ],
+                "bucket_key_enabled": false
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 1,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-audit-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.cloudtrail_bucket",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "primary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "expected_bucket_owner": "",
+            "id": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1",
+            "rule": [
+              {
+                "apply_server_side_encryption_by_default": [
+                  {
+                    "kms_master_key_id": "",
+                    "sse_algorithm": "AES256"
+                  }
+                ],
+                "blocked_encryption_types": [
+                  "SSE-C"
+                ],
+                "bucket_key_enabled": false
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 1,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.primary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "secondary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "expected_bucket_owner": "",
+            "id": "self-healing-storage-singapore-2729487b",
+            "region": "ap-southeast-1",
+            "rule": [
+              {
+                "apply_server_side_encryption_by_default": [
+                  {
+                    "kms_master_key_id": "",
+                    "sse_algorithm": "AES256"
+                  }
+                ],
+                "blocked_encryption_types": [
+                  "SSE-C"
+                ],
+                "bucket_key_enabled": false
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 1,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "region": "ap-southeast-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "primary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "expected_bucket_owner": "",
+            "id": "self-healing-storage-mumbai-2729487b",
+            "mfa": null,
+            "region": "ap-south-1",
+            "versioning_configuration": [
+              {
+                "mfa_delete": "Disabled",
+                "status": "Enabled"
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 1,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-mumbai-2729487b",
+            "region": "ap-south-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.primary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "secondary",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "expected_bucket_owner": "",
+            "id": "self-healing-storage-singapore-2729487b",
+            "mfa": null,
+            "region": "ap-southeast-1",
+            "versioning_configuration": [
+              {
+                "mfa_delete": "Disabled",
+                "status": "Enabled"
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 1,
+          "identity": {
+            "account_id": "136191772799",
+            "bucket": "self-healing-storage-singapore-2729487b",
+            "region": "ap-southeast-1"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_s3_bucket.secondary",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sns_topic",
+      "name": "alerts",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "application_failure_feedback_role_arn": "",
+            "application_success_feedback_role_arn": "",
+            "application_success_feedback_sample_rate": 0,
+            "archive_policy": "",
+            "arn": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts",
+            "beginning_archive_time": "",
+            "content_based_deduplication": false,
+            "delivery_policy": "",
+            "display_name": "",
+            "fifo_throughput_scope": "",
+            "fifo_topic": false,
+            "firehose_failure_feedback_role_arn": "",
+            "firehose_success_feedback_role_arn": "",
+            "firehose_success_feedback_sample_rate": 0,
+            "http_failure_feedback_role_arn": "",
+            "http_success_feedback_role_arn": "",
+            "http_success_feedback_sample_rate": 0,
+            "id": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts",
+            "kms_master_key_id": "",
+            "lambda_failure_feedback_role_arn": "",
+            "lambda_success_feedback_role_arn": "",
+            "lambda_success_feedback_sample_rate": 0,
+            "maximum_message_size": 0,
+            "name": "self-healing-storage-alerts",
+            "name_prefix": "",
+            "owner": "136191772799",
+            "policy": "{\"Id\":\"__default_policy_ID\",\"Statement\":[{\"Action\":[\"SNS:GetTopicAttributes\",\"SNS:SetTopicAttributes\",\"SNS:AddPermission\",\"SNS:RemovePermission\",\"SNS:DeleteTopic\",\"SNS:Subscribe\",\"SNS:ListSubscriptionsByTopic\",\"SNS:Publish\"],\"Condition\":{\"StringEquals\":{\"AWS:SourceOwner\":\"136191772799\"}},\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Resource\":\"arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts\",\"Sid\":\"__default_statement_ID\"}],\"Version\":\"2008-10-17\"}",
+            "region": "ap-south-1",
+            "signature_version": 0,
+            "sqs_failure_feedback_role_arn": "",
+            "sqs_success_feedback_role_arn": "",
+            "sqs_success_feedback_sample_rate": 0,
+            "tags": null,
+            "tags_all": {},
+            "tracing_config": ""
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts"
+          },
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sns_topic_subscription",
+      "name": "email",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts:71618c5c-a284-469b-aab6-ec26f1f22cce",
+            "confirmation_timeout_in_minutes": 1,
+            "confirmation_was_authenticated": false,
+            "delivery_policy": "",
+            "endpoint": "karubi158@gmail.com",
+            "endpoint_auto_confirms": false,
+            "filter_policy": "",
+            "filter_policy_scope": "",
+            "id": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts:71618c5c-a284-469b-aab6-ec26f1f22cce",
+            "owner_id": "136191772799",
+            "pending_confirmation": true,
+            "protocol": "email",
+            "raw_message_delivery": false,
+            "redrive_policy": "",
+            "region": "ap-south-1",
+            "replay_policy": "",
+            "subscription_role_arn": "",
+            "topic_arn": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:sns:ap-south-1:136191772799:self-healing-storage-alerts:71618c5c-a284-469b-aab6-ec26f1f22cce"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_sns_topic.alerts"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "random_id",
+      "name": "bucket_suffix",
+      "provider": "provider[\"registry.terraform.io/hashicorp/random\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "b64_std": "JylIew==",
+            "b64_url": "JylIew",
+            "byte_length": 4,
+            "dec": "657016955",
+            "hex": "2729487b",
+            "id": "JylIew",
+            "keepers": null,
+            "prefix": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "data",
+      "type": "aws_ami",
+      "name": "amazon_linux",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allow_unsafe_filter": null,
+            "architecture": "x86_64",
+            "arn": "arn:aws:ec2:ap-south-1::image/ami-023dad608d2a5e5b8",
+            "block_device_mappings": [
+              {
+                "device_name": "/dev/xvda",
+                "ebs": {
+                  "delete_on_termination": "true",
+                  "encrypted": "false",
+                  "iops": "3000",
+                  "snapshot_id": "snap-0834a8855dda56570",
+                  "throughput": "125",
+                  "volume_initialization_rate": "0",
+                  "volume_size": "8",
+                  "volume_type": "gp3"
+                },
+                "no_device": "",
+                "virtual_name": ""
+              }
+            ],
+            "boot_mode": "uefi-preferred",
+            "creation_date": "2026-11-12T13:01:18.000Z",
+            "deprecation_time": "2027-02-10T13:03:00.000Z",
+            "description": "Amazon Linux 2023 AMI 2023.12.20261112.0 x86_64 HVM kernel-6.12",
+            "ena_support": true,
+            "executable_users": null,
+            "filter": [
+              {
+                "name": "architecture",
+                "values": [
+                  "x86_64"
+                ]
+              },
+              {
+                "name": "name",
+                "values": [
+                  "al2023-ami-2023.*-x86_64"
+                ]
+              },
+              {
+                "name": "virtualization-type",
+                "values": [
+                  "hvm"
+                ]
+              }
+            ],
+            "hypervisor": "xen",
+            "id": "ami-023dad608d2a5e5b8",
+            "image_id": "ami-023dad608d2a5e5b8",
+            "image_location": "amazon/al2023-ami-2023.12.20261112.0-kernel-6.12-x86_64",
+            "image_owner_alias": "amazon",
+            "image_type": "machine",
+            "imds_support": "v2.0",
+            "include_deprecated": false,
+            "kernel_id": "",
+            "last_launched_time": "",
+            "most_recent": true,
+            "name": "al2023-ami-2023.12.20261112.0-kernel-6.12-x86_64",
+            "name_regex": null,
+            "owner_id": "137112412989",
+            "owners": [
+              "amazon"
+            ],
+            "platform": "",
+            "platform_details": "Linux/UNIX",
+            "product_codes": [],
+            "public": true,
+            "ramdisk_id": "",
+            "region": "ap-south-1",
+            "root_device_name": "/dev/xvda",
+            "root_device_type": "ebs",
+            "root_snapshot_id": "snap-0834a8855dda56570",
+            "sriov_net_support": "simple",
+            "state": "available",
+            "state_reason": {
+              "code": "UNSET",
+              "message": "UNSET"
+            },
+            "tags": {},
+            "timeouts": null,
+            "tpm_support": "",
+            "uefi_data": null,
+            "usage_operation": "RunInstances",
+            "virtualization_type": "hvm"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "data",
+      "type": "aws_availability_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "all_availability_zones": null,
+            "exclude_names": null,
+            "exclude_zone_ids": null,
+            "filter": null,
+            "group_names": [
+              "ap-south-1-zg-1"
+            ],
+            "id": "ap-south-1",
+            "names": [
+              "ap-south-1a",
+              "ap-south-1b",
+              "ap-south-1c"
+            ],
+            "region": "ap-south-1",
+            "state": "available",
+            "timeouts": null,
+            "zone_ids": [
+              "aps1-az1",
+              "aps1-az3",
+              "aps1-az2"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_autoscaling_group",
+      "name": "app_asg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:autoscaling:ap-south-1:136191772799:autoScalingGroup:5cb57174-4e31-4ba7-a2e3-9a0e18924e6c:autoScalingGroupName/self-healing-storage-ap-south-1-asg",
+            "availability_zone_distribution": [
+              {
+                "capacity_distribution_strategy": "balanced-best-effort"
+              }
+            ],
+            "availability_zones": [
+              "ap-south-1a",
+              "ap-south-1b"
+            ],
+            "capacity_rebalance": false,
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "default",
+                "capacity_reservation_target": []
+              }
+            ],
+            "context": "",
+            "default_cooldown": 300,
+            "default_instance_warmup": 0,
+            "desired_capacity": 2,
+            "desired_capacity_type": "",
+            "enabled_metrics": null,
+            "force_delete": false,
+            "force_delete_warm_pool": false,
+            "health_check_grace_period": 300,
+            "health_check_type": "ELB",
+            "id": "self-healing-storage-ap-south-1-asg",
+            "ignore_failed_scaling_activities": false,
+            "initial_lifecycle_hook": [],
+            "instance_lifecycle_policy": [
+              {
+                "retention_triggers": [
+                  {
+                    "terminate_hook_abandon": "terminate"
+                  }
+                ]
+              }
+            ],
+            "instance_maintenance_policy": [],
+            "instance_refresh": [],
+            "launch_configuration": "",
+            "launch_template": [
+              {
+                "id": "lt-02fcdc467fecff5b6",
+                "name": "self-healing-storage-ap-south-1-894af88e63fbb5b24dd0f43630",
+                "version": "$Latest"
+              }
+            ],
+            "load_balancers": [],
+            "max_instance_lifetime": 0,
+            "max_size": 4,
+            "metrics_granularity": "1Minute",
+            "min_elb_capacity": null,
+            "min_size": 2,
+            "mixed_instances_policy": [],
+            "name": "self-healing-storage-ap-south-1-asg",
+            "name_prefix": "",
+            "placement_group": "",
+            "predicted_capacity": 0,
+            "protect_from_scale_in": false,
+            "region": "ap-south-1",
+            "service_linked_role_arn": "arn:aws:iam::136191772799:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+            "suspended_processes": null,
+            "tag": [
+              {
+                "key": "Name",
+                "propagate_at_launch": false,
+                "value": "self-healing-storage-ap-south-1-asg"
+              }
+            ],
+            "target_group_arns": [
+              "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159"
+            ],
+            "termination_policies": null,
+            "timeouts": null,
+            "traffic_source": [
+              {
+                "identifier": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+                "type": "elbv2"
+              }
+            ],
+            "vpc_zone_identifier": [
+              "subnet-02be2e95ea801b654",
+              "subnet-0742b74c53b5df684"
+            ],
+            "wait_for_capacity_timeout": "10m",
+            "wait_for_elb_capacity": null,
+            "warm_pool": [],
+            "warm_pool_size": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-ap-south-1-asg",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjo2MDAwMDAwMDAwMDAsInVwZGF0ZSI6NjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_iam_instance_profile.ec2_profile",
+            "aws_iam_role.ec2_role",
+            "module.mumbai_app.aws_eip.nat",
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_launch_template.app",
+            "module.mumbai_app.aws_lb.app_alb",
+            "module.mumbai_app.aws_lb_listener.http",
+            "module.mumbai_app.aws_lb_target_group.app_tg",
+            "module.mumbai_app.aws_nat_gateway.nat",
+            "module.mumbai_app.aws_route_table.private",
+            "module.mumbai_app.aws_route_table_association.private",
+            "module.mumbai_app.aws_security_group.alb_sg",
+            "module.mumbai_app.aws_security_group.ec2_sg",
+            "module.mumbai_app.aws_subnet.private",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_ami.amazon_linux",
+            "module.mumbai_app.data.aws_availability_zones.available",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_eip",
+      "name": "nat",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address": null,
+            "allocation_id": "eipalloc-0e1d162ff5b23104b",
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:elastic-ip/eipalloc-0e1d162ff5b23104b",
+            "associate_with_private_ip": null,
+            "association_id": "",
+            "carrier_ip": "",
+            "customer_owned_ip": "",
+            "customer_owned_ipv4_pool": "",
+            "domain": "vpc",
+            "id": "eipalloc-0e1d162ff5b23104b",
+            "instance": "",
+            "ipam_pool_id": "",
+            "network_border_group": "ap-south-1",
+            "network_interface": "",
+            "private_dns": "",
+            "private_ip": "",
+            "ptr_record": "",
+            "public_dns": "ec2-13-202-197-51.ap-south-1.compute.amazonaws.com",
+            "public_ip": "13.202.197.51",
+            "public_ipv4_pool": "amazon",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-nat-eip"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-nat-eip"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "eipalloc-0e1d162ff5b23104b",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjoxODAwMDAwMDAwMDAsInJlYWQiOjkwMDAwMDAwMDAwMCwidXBkYXRlIjozMDAwMDAwMDAwMDB9fQ=="
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_internet_gateway",
+      "name": "igw",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:internet-gateway/igw-010bbad35c5478ff2",
+            "id": "igw-010bbad35c5478ff2",
+            "owner_id": "136191772799",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-igw"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-igw"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "igw-010bbad35c5478ff2",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_launch_template",
+      "name": "app",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:launch-template/lt-02fcdc467fecff5b6",
+            "block_device_mappings": [],
+            "capacity_reservation_specification": [],
+            "cpu_options": [],
+            "credit_specification": [],
+            "default_version": 1,
+            "description": "",
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_optimized": "",
+            "enclave_options": [],
+            "hibernation_options": [],
+            "iam_instance_profile": [
+              {
+                "arn": "",
+                "name": "self-healing-storage-ec2-profile"
+              }
+            ],
+            "id": "lt-02fcdc467fecff5b6",
+            "image_id": "ami-023dad608d2a5e5b8",
+            "instance_initiated_shutdown_behavior": "",
+            "instance_market_options": [],
+            "instance_requirements": [],
+            "instance_type": "t3.micro",
+            "kernel_id": "",
+            "key_name": "",
+            "latest_version": 1,
+            "license_specification": [],
+            "maintenance_options": [],
+            "metadata_options": [],
+            "monitoring": [],
+            "name": "self-healing-storage-ap-south-1-894af88e63fbb5b24dd0f43630",
+            "name_prefix": "self-healing-storage-ap-south-1-",
+            "network_interfaces": [],
+            "network_performance_options": [],
+            "placement": [],
+            "private_dns_name_options": [],
+            "ram_disk_id": "",
+            "region": "ap-south-1",
+            "secondary_interfaces": [],
+            "security_group_names": null,
+            "tag_specifications": [
+              {
+                "resource_type": "instance",
+                "tags": {
+                  "Name": "self-healing-storage-ap-south-1-web"
+                }
+              }
+            ],
+            "tags": null,
+            "tags_all": {},
+            "update_default_version": null,
+            "user_data": "DQojIS9iaW4vYmFzaA0Kc2V0IC1ldXhvIHBpcGVmYWlsDQoNCmRuZiBpbnN0YWxsIC15IHB5dGhvbjMgcHl0aG9uMy1waXANCg0KbWtkaXIgLXAgL29wdC9zdG9yYWdlLWFwcA0KDQpweXRob24zIC1tIHZlbnYgL29wdC9zdG9yYWdlLWFwcC92ZW52DQoNCi9vcHQvc3RvcmFnZS1hcHAvdmVudi9iaW4vcGlwIGluc3RhbGwgLS11cGdyYWRlIHBpcA0KL29wdC9zdG9yYWdlLWFwcC92ZW52L2Jpbi9waXAgaW5zdGFsbCBmbGFzayBib3RvMyBndW5pY29ybg0KDQpjYXQgPiAvb3B0L3N0b3JhZ2UtYXBwL2FwcC5weSA8PCdQWVRIT04nDQppbXBvcnQgb3MNCmltcG9ydCBib3RvMw0KZnJvbSBmbGFzayBpbXBvcnQgRmxhc2ssIHJlcXVlc3QsIHJlZGlyZWN0LCB1cmxfZm9yLCByZW5kZXJfdGVtcGxhdGVfc3RyaW5nDQpmcm9tIHdlcmt6ZXVnLnV0aWxzIGltcG9ydCBzZWN1cmVfZmlsZW5hbWUNCmZyb20gYm90b2NvcmUuZXhjZXB0aW9ucyBpbXBvcnQgQm90b0NvcmVFcnJvciwgQ2xpZW50RXJyb3INCg0KYXBwID0gRmxhc2soX19uYW1lX18pDQoNClBSSU1BUllfQlVDS0VUID0gInNlbGYtaGVhbGluZy1zdG9yYWdlLW11bWJhaS0yNzI5NDg3YiINClNFQ09OREFSWV9CVUNLRVQgPSAic2VsZi1oZWFsaW5nLXN0b3JhZ2Utc2luZ2Fwb3JlLTI3Mjk0ODdiIg0KUFJJTUFSWV9SRUdJT04gPSAiYXAtc291dGgtMSINClNFQ09OREFSWV9SRUdJT04gPSAiYXAtc291dGhlYXN0LTEiDQoNCmFwcC5jb25maWdbIk1BWF9DT05URU5UX0xFTkdUSCJdID0gMTAgKiAxMDI0ICogMTAyNA0KDQpIVE1MID0gIiIiDQo8IURPQ1RZUEUgaHRtbD4NCjxodG1sPg0KPGhlYWQ+DQogICAgPHRpdGxlPlNlbGYtSGVhbGluZyBDbG91ZCBTdG9yYWdlPC90aXRsZT4NCiAgICA8c3R5bGU+DQogICAgICAgIGJvZHkgew0KICAgICAgICAgICAgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOw0KICAgICAgICAgICAgYmFja2dyb3VuZDogI2YzZjZmYjsNCiAgICAgICAgICAgIG1hcmdpbjogMDsNCiAgICAgICAgICAgIHBhZGRpbmc6IDQwcHg7DQogICAgICAgIH0NCiAgICAgICAgLmNvbnRhaW5lciB7DQogICAgICAgICAgICBtYXgtd2lkdGg6IDg1MHB4Ow0KICAgICAgICAgICAgbWFyZ2luOiBhdXRvOw0KICAgICAgICAgICAgYmFja2dyb3VuZDogd2hpdGU7DQogICAgICAgICAgICBwYWRkaW5nOiAzMHB4Ow0KICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMTJweDsNCiAgICAgICAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDE1cHggIzAwMDE7DQogICAgICAgIH0NCiAgICAgICAgaDEgeyBjb2xvcjogIzE4M2I2NTsgfQ0KICAgICAgICAuc3RhdHVzIHsgY29sb3I6IGdyZWVuOyBmb250LXdlaWdodDogYm9sZDsgfQ0KICAgICAgICBidXR0b24gew0KICAgICAgICAgICAgYmFja2dyb3VuZDogIzE3NjlhYTsNCiAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTsNCiAgICAgICAgICAgIGJvcmRlcjogMDsNCiAgICAgICAgICAgIHBhZGRpbmc6IDEwcHggMThweDsNCiAgICAgICAgICAgIGN1cnNvcjogcG9pbnRlcjsNCiAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDsNCiAgICAgICAgfQ0KICAgICAgICBsaSB7IG1hcmdpbjogMTJweCAwOyB9DQogICAgICAgIGEgeyBjb2xvcjogIzE3NjlhYTsgfQ0KICAgIDwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keT4NCjxkaXYgY2xhc3M9ImNvbnRhaW5lciI+DQogICAgPGgxPlNlbGYtSGVhbGluZyBDbG91ZCBTdG9yYWdlPC9oMT4NCiAgICA8cCBjbGFzcz0ic3RhdHVzIj5BcHBsaWNhdGlvbiBpcyBydW5uaW5nPC9wPg0KICAgIDxwPjxiPlJlZ2lvbjo8L2I+IHt7IHJlZ2lvbiB9fTwvcD4NCiAgICA8cD48Yj5BY3RpdmUgc3RvcmFnZSBidWNrZXQ6PC9iPiB7eyBidWNrZXQgfX08L3A+DQoNCiAgICA8aDI+VXBsb2FkIGEgZmlsZTwvaDI+DQogICAgPGZvcm0gYWN0aW9uPSIvdXBsb2FkIiBtZXRob2Q9IlBPU1QiIGVuY3R5cGU9Im11bHRpcGFydC9mb3JtLWRhdGEiPg0KICAgICAgICA8aW5wdXQgdHlwZT0iZmlsZSIgbmFtZT0iZmlsZSIgcmVxdWlyZWQ+DQogICAgICAgIDxidXR0b24gdHlwZT0ic3VibWl0Ij5VcGxvYWQ8L2J1dHRvbj4NCiAgICA8L2Zvcm0+DQoNCiAgICA8aDI+U3RvcmVkIGZpbGVzPC9oMj4NCiAgICB7JSBpZiBmaWxlcyAlfQ0KICAgICAgICA8dWw+DQogICAgICAgIHslIGZvciBpdGVtIGluIGZpbGVzICV9DQogICAgICAgICAgICA8bGk+DQogICAgICAgICAgICAgICAge3sgaXRlbSB9fQ0KICAgICAgICAgICAgICAgIDxhIGhyZWY9Ii9kb3dubG9hZC97eyBpdGVtIH19Ij5Eb3dubG9hZDwvYT4NCiAgICAgICAgICAgIDwvbGk+DQogICAgICAgIHslIGVuZGZvciAlfQ0KICAgICAgICA8L3VsPg0KICAgIHslIGVsc2UgJX0NCiAgICAgICAgPHA+Tm8gZmlsZXMgZm91bmQgb3Igc3RvcmFnZSBpcyB0ZW1wb3JhcmlseSB1bmF2YWlsYWJsZS48L3A+DQogICAgeyUgZW5kaWYgJX0NCg0KICAgIHslIGlmIG1lc3NhZ2UgJX0NCiAgICAgICAgPHA+PGI+e3sgbWVzc2FnZSB9fTwvYj48L3A+DQogICAgeyUgZW5kaWYgJX0NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0KIiIiDQoNCmRlZiBzM19jbGllbnQocmVnaW9uKToNCiAgICByZXR1cm4gYm90bzMuY2xpZW50KCJzMyIsIHJlZ2lvbl9uYW1lPXJlZ2lvbikNCg0KZGVmIGJ1Y2tldF9sb2NhdGlvbnMoKToNCiAgICByZXR1cm4gWw0KICAgICAgICAoUFJJTUFSWV9CVUNLRVQsIFBSSU1BUllfUkVHSU9OKSwNCiAgICAgICAgKFNFQ09OREFSWV9CVUNLRVQsIFNFQ09OREFSWV9SRUdJT04pDQogICAgXQ0KDQpkZWYgbGlzdF9maWxlcygpOg0KICAgIHJlc3VsdHMgPSBbXQ0KDQogICAgZm9yIGJ1Y2tldCwgcmVnaW9uIGluIGJ1Y2tldF9sb2NhdGlvbnMoKToNCiAgICAgICAgdHJ5Og0KICAgICAgICAgICAgcmVzcG9uc2UgPSBzM19jbGllbnQocmVnaW9uKS5saXN0X29iamVjdHNfdjIoQnVja2V0PWJ1Y2tldCkNCg0KICAgICAgICAgICAgZm9yIG9iaiBpbiByZXNwb25zZS5nZXQoIkNvbnRlbnRzIiwgW10pOg0KICAgICAgICAgICAgICAgIHJlc3VsdHMuYXBwZW5kKG9ialsiS2V5Il0pDQoNCiAgICAgICAgZXhjZXB0IChDbGllbnRFcnJvciwgQm90b0NvcmVFcnJvcik6DQogICAgICAgICAgICBjb250aW51ZQ0KDQogICAgcmV0dXJuIHNvcnRlZChzZXQocmVzdWx0cykpDQoNCkBhcHAucm91dGUoIi9oZWFsdGgiKQ0KZGVmIGhlYWx0aCgpOg0KICAgIHJldHVybiB7InN0YXR1cyI6ICJoZWFsdGh5IiwgInJlZ2lvbiI6IFBSSU1BUllfUkVHSU9OfSwgMjAwDQoNCkBhcHAucm91dGUoIi8iKQ0KZGVmIGhvbWUoKToNCiAgICByZXR1cm4gcmVuZGVyX3RlbXBsYXRlX3N0cmluZygNCiAgICAgICAgSFRNTCwNCiAgICAgICAgcmVnaW9uPVBSSU1BUllfUkVHSU9OLA0KICAgICAgICBidWNrZXQ9UFJJTUFSWV9CVUNLRVQsDQogICAgICAgIGZpbGVzPWxpc3RfZmlsZXMoKSwNCiAgICAgICAgbWVzc2FnZT1yZXF1ZXN0LmFyZ3MuZ2V0KCJtZXNzYWdlIiwgIiIpDQogICAgKQ0KDQpAYXBwLnJvdXRlKCIvdXBsb2FkIiwgbWV0aG9kcz1bIlBPU1QiXSkNCmRlZiB1cGxvYWQoKToNCiAgICB1cGxvYWRlZF9maWxlID0gcmVxdWVzdC5maWxlcy5nZXQoImZpbGUiKQ0KDQogICAgaWYgbm90IHVwbG9hZGVkX2ZpbGUgb3Igbm90IHVwbG9hZGVkX2ZpbGUuZmlsZW5hbWU6DQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT0iUGxlYXNlIHNlbGVjdCBhIGZpbGUiKSkNCg0KICAgIGZpbGVuYW1lID0gc2VjdXJlX2ZpbGVuYW1lKHVwbG9hZGVkX2ZpbGUuZmlsZW5hbWUpDQoNCiAgICB0cnk6DQogICAgICAgIGNvbnRlbnQgPSB1cGxvYWRlZF9maWxlLnJlYWQoKQ0KDQogICAgICAgIHRyeToNCiAgICAgICAgICAgIHMzX2NsaWVudChQUklNQVJZX1JFR0lPTikucHV0X29iamVjdCgNCiAgICAgICAgICAgICAgICBCdWNrZXQ9UFJJTUFSWV9CVUNLRVQsDQogICAgICAgICAgICAgICAgS2V5PWZpbGVuYW1lLA0KICAgICAgICAgICAgICAgIEJvZHk9Y29udGVudA0KICAgICAgICAgICAgKQ0KICAgICAgICAgICAgbWVzc2FnZSA9ICJGaWxlIHVwbG9hZGVkIHRvIHRoZSBsb2NhbCByZWdpb25hbCBidWNrZXQuIg0KDQogICAgICAgIGV4Y2VwdCAoQ2xpZW50RXJyb3IsIEJvdG9Db3JlRXJyb3IpOg0KICAgICAgICAgICAgczNfY2xpZW50KFNFQ09OREFSWV9SRUdJT04pLnB1dF9vYmplY3QoDQogICAgICAgICAgICAgICAgQnVja2V0PVNFQ09OREFSWV9CVUNLRVQsDQogICAgICAgICAgICAgICAgS2V5PWZpbGVuYW1lLA0KICAgICAgICAgICAgICAgIEJvZHk9Y29udGVudA0KICAgICAgICAgICAgKQ0KICAgICAgICAgICAgbWVzc2FnZSA9ICJQcmltYXJ5IHN0b3JhZ2UgdW5hdmFpbGFibGUuIEZpbGUgdXBsb2FkZWQgdG8gc2Vjb25kYXJ5IHN0b3JhZ2UuIg0KDQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT1tZXNzYWdlKSkNCg0KICAgIGV4Y2VwdCBFeGNlcHRpb246DQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT0iVXBsb2FkIGZhaWxlZC4gQ2hlY2sgYXBwbGljYXRpb24gbG9ncy4iKSkNCg0KQGFwcC5yb3V0ZSgiL2Rvd25sb2FkLzxwYXRoOmZpbGVuYW1lPiIpDQpkZWYgZG93bmxvYWQoZmlsZW5hbWUpOg0KICAgIGZyb20gZmxhc2sgaW1wb3J0IFJlc3BvbnNlDQoNCiAgICBmb3IgYnVja2V0LCByZWdpb24gaW4gYnVja2V0X2xvY2F0aW9ucygpOg0KICAgICAgICB0cnk6DQogICAgICAgICAgICByZXNwb25zZSA9IHMzX2NsaWVudChyZWdpb24pLmdldF9vYmplY3QoDQogICAgICAgICAgICAgICAgQnVja2V0PWJ1Y2tldCwNCiAgICAgICAgICAgICAgICBLZXk9ZmlsZW5hbWUNCiAgICAgICAgICAgICkNCg0KICAgICAgICAgICAgcmV0dXJuIFJlc3BvbnNlKA0KICAgICAgICAgICAgICAgIHJlc3BvbnNlWyJCb2R5Il0ucmVhZCgpLA0KICAgICAgICAgICAgICAgIG1pbWV0eXBlPSJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0iLA0KICAgICAgICAgICAgICAgIGhlYWRlcnM9ew0KICAgICAgICAgICAgICAgICAgICAiQ29udGVudC1EaXNwb3NpdGlvbiI6ICdhdHRhY2htZW50OyBmaWxlbmFtZT0iJyArIHNlY3VyZV9maWxlbmFtZShmaWxlbmFtZSkgKyAnIicNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICApDQoNCiAgICAgICAgZXhjZXB0IChDbGllbnRFcnJvciwgQm90b0NvcmVFcnJvcik6DQogICAgICAgICAgICBjb250aW51ZQ0KDQogICAgcmV0dXJuICJGaWxlIG5vdCBmb3VuZCBpbiBlaXRoZXIgc3RvcmFnZSByZWdpb24iLCA0MDQNCg0KaWYgX19uYW1lX18gPT0gIl9fbWFpbl9fIjoNCiAgICBhcHAucnVuKGhvc3Q9IjAuMC4wLjAiLCBwb3J0PTUwMDApDQpQWVRIT04NCg0KY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS9zdG9yYWdlLWFwcC5zZXJ2aWNlIDw8J1NFUlZJQ0UnDQpbVW5pdF0NCkRlc2NyaXB0aW9uPVNlbGYgSGVhbGluZyBTdG9yYWdlIEZsYXNrIEFwcGxpY2F0aW9uDQpBZnRlcj1uZXR3b3JrLW9ubGluZS50YXJnZXQNCldhbnRzPW5ldHdvcmstb25saW5lLnRhcmdldA0KDQpbU2VydmljZV0NCldvcmtpbmdEaXJlY3Rvcnk9L29wdC9zdG9yYWdlLWFwcA0KRXhlY1N0YXJ0PS9vcHQvc3RvcmFnZS1hcHAvdmVudi9iaW4vZ3VuaWNvcm4gLS13b3JrZXJzIDIgLS1iaW5kIDAuMC4wLjA6NTAwMCBhcHA6YXBwDQpSZXN0YXJ0PWFsd2F5cw0KUmVzdGFydFNlYz01DQoNCltJbnN0YWxsXQ0KV2FudGVkQnk9bXVsdGktdXNlci50YXJnZXQNClNFUlZJQ0UNCg0Kc3lzdGVtY3RsIGRhZW1vbi1yZWxvYWQNCnN5c3RlbWN0bCBlbmFibGUgc3RvcmFnZS1hcHANCnN5c3RlbWN0bCBzdGFydCBzdG9yYWdlLWFwcA0KQGFwcC5yb3V0ZSgiL3JlYWR5IikNCmRlZiByZWFkeSgpOg0KICAgIHRyeToNCiAgICAgICAgczNfY2xpZW50KFBSSU1BUllfUkVHSU9OKS5oZWFkX2J1Y2tldChCdWNrZXQ9UFJJTUFSWV9CVUNLRVQpDQogICAgICAgIHJldHVybiB7InN0YXR1cyI6ICJyZWFkeSJ9LCAyMDANCiAgICBleGNlcHQgRXhjZXB0aW9uOg0KICAgICAgICByZXR1cm4geyJzdGF0dXMiOiAic3RvcmFnZSB1bmF2YWlsYWJsZSJ9LCA1MDM=",
+            "vpc_security_group_ids": [
+              "sg-0a91aa838d14708d8"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "lt-02fcdc467fecff5b6",
+            "region": "ap-south-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_iam_instance_profile.ec2_profile",
+            "aws_iam_role.ec2_role",
+            "module.mumbai_app.aws_security_group.alb_sg",
+            "module.mumbai_app.aws_security_group.ec2_sg",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_ami.amazon_linux",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_lb",
+      "name": "app_alb",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:loadbalancer/app/selfheal-ap-south-1-alb/298534fb0fb45c66",
+            "arn_suffix": "app/selfheal-ap-south-1-alb/298534fb0fb45c66",
+            "client_keep_alive": 3600,
+            "connection_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "customer_owned_ipv4_pool": "",
+            "desync_mitigation_mode": "defensive",
+            "dns_name": "selfheal-ap-south-1-alb-2117137215.ap-south-1.elb.amazonaws.com",
+            "dns_record_client_routing_policy": null,
+            "drop_invalid_header_fields": false,
+            "enable_cross_zone_load_balancing": true,
+            "enable_deletion_protection": false,
+            "enable_http2": true,
+            "enable_prefix_for_ipv6_source_nat": "off",
+            "enable_tls_version_and_cipher_suite_headers": false,
+            "enable_waf_fail_open": false,
+            "enable_xff_client_port": false,
+            "enable_zonal_shift": false,
+            "enforce_security_group_inbound_rules_on_private_link_traffic": "",
+            "health_check_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:loadbalancer/app/selfheal-ap-south-1-alb/298534fb0fb45c66",
+            "idle_timeout": 60,
+            "internal": false,
+            "ip_address_type": "ipv4",
+            "ipam_pools": [],
+            "load_balancer_type": "application",
+            "minimum_load_balancer_capacity": [],
+            "name": "selfheal-ap-south-1-alb",
+            "name_prefix": "",
+            "preserve_host_header": false,
+            "region": "ap-south-1",
+            "secondary_ips_auto_assigned_per_subnet": null,
+            "security_groups": [
+              "sg-02503aafed4d3b18c"
+            ],
+            "subnet_mapping": [
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-01fb544da64291bf7"
+              },
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-04f0b30565f74ed9a"
+              }
+            ],
+            "subnets": [
+              "subnet-01fb544da64291bf7",
+              "subnet-04f0b30565f74ed9a"
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-alb"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-alb"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0",
+            "xff_header_processing_mode": "append",
+            "zone_id": "ZP97RAFLXTNZK"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:loadbalancer/app/selfheal-ap-south-1-alb/298534fb0fb45c66"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_security_group.alb_sg",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "http",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:listener/app/selfheal-ap-south-1-alb/298534fb0fb45c66/6024b7813f627c89",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "jwt_validation": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:listener/app/selfheal-ap-south-1-alb/298534fb0fb45c66/6024b7813f627c89",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:loadbalancer/app/selfheal-ap-south-1-alb/298534fb0fb45c66",
+            "mutual_authentication": [],
+            "port": 80,
+            "protocol": "HTTP",
+            "region": "ap-south-1",
+            "routing_http_request_x_amzn_mtls_clientcert_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": null,
+            "routing_http_request_x_amzn_tls_cipher_suite_header_name": null,
+            "routing_http_request_x_amzn_tls_version_header_name": null,
+            "routing_http_response_access_control_allow_credentials_header_value": "",
+            "routing_http_response_access_control_allow_headers_header_value": "",
+            "routing_http_response_access_control_allow_methods_header_value": "",
+            "routing_http_response_access_control_allow_origin_header_value": "",
+            "routing_http_response_access_control_expose_headers_header_value": "",
+            "routing_http_response_access_control_max_age_header_value": "",
+            "routing_http_response_content_security_policy_header_value": "",
+            "routing_http_response_server_enabled": true,
+            "routing_http_response_strict_transport_security_header_value": "",
+            "routing_http_response_x_content_type_options_header_value": "",
+            "routing_http_response_x_frame_options_header_value": "",
+            "ssl_policy": "",
+            "tags": null,
+            "tags_all": {},
+            "tcp_idle_timeout_seconds": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:listener/app/selfheal-ap-south-1-alb/298534fb0fb45c66/6024b7813f627c89"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsInVwZGF0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.mumbai_app.aws_lb.app_alb",
+            "module.mumbai_app.aws_lb_target_group.app_tg",
+            "module.mumbai_app.aws_security_group.alb_sg",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "app_tg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+            "arn_suffix": "targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+            "connection_termination": null,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 2,
+                "interval": 30,
+                "matcher": "200",
+                "path": "/health",
+                "port": "traffic-port",
+                "protocol": "HTTP",
+                "timeout": 5,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159",
+            "ip_address_type": "ipv4",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancer_arns": [],
+            "load_balancing_algorithm_type": "round_robin",
+            "load_balancing_anomaly_mitigation": "off",
+            "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
+            "name": "selfheal-ap-south-1-tg",
+            "name_prefix": "",
+            "port": 5000,
+            "preserve_client_ip": null,
+            "protocol": "HTTP",
+            "protocol_version": "HTTP1",
+            "proxy_protocol_v2": false,
+            "region": "ap-south-1",
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 86400,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "lb_cookie"
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-tg"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-tg"
+            },
+            "target_control_port": 0,
+            "target_failover": [
+              {
+                "on_deregistration": null,
+                "on_unhealthy": null
+              }
+            ],
+            "target_group_health": [
+              {
+                "dns_failover": [
+                  {
+                    "minimum_healthy_targets_count": "1",
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ],
+                "unhealthy_state_routing": [
+                  {
+                    "minimum_healthy_targets_count": 1,
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ]
+              }
+            ],
+            "target_health_state": [
+              {
+                "enable_unhealthy_connection_termination": null,
+                "unhealthy_draining_interval": null
+              }
+            ],
+            "target_type": "instance",
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-south-1:136191772799:targetgroup/selfheal-ap-south-1-tg/099e961ab6627159"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_nat_gateway",
+      "name": "nat",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_id": "eipalloc-0e1d162ff5b23104b",
+            "association_id": "eipassoc-03ea5e57197d149b7",
+            "auto_provision_zones": null,
+            "auto_scaling_ips": null,
+            "availability_mode": "zonal",
+            "availability_zone_address": [],
+            "connectivity_type": "public",
+            "id": "nat-0b97336abbb1ec294",
+            "network_interface_id": "eni-01027283ffc7a8fd2",
+            "private_ip": "10.0.0.157",
+            "public_ip": "13.202.197.51",
+            "region": "ap-south-1",
+            "regional_nat_gateway_address": [],
+            "regional_nat_gateway_auto_mode": null,
+            "route_table_id": null,
+            "secondary_allocation_ids": [],
+            "secondary_private_ip_address_count": 0,
+            "secondary_private_ip_addresses": [],
+            "subnet_id": "subnet-04f0b30565f74ed9a",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-nat"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-nat"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "nat-0b97336abbb1ec294",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "module.mumbai_app.aws_eip.nat",
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:route-table/rtb-0251a47369510add8",
+            "id": "rtb-0251a47369510add8",
+            "owner_id": "136191772799",
+            "propagating_vgws": [],
+            "region": "ap-south-1",
+            "route": [
+              {
+                "carrier_gateway_id": "",
+                "cidr_block": "0.0.0.0/0",
+                "core_network_arn": "",
+                "destination_prefix_list_id": "",
+                "egress_only_gateway_id": "",
+                "gateway_id": "",
+                "ipv6_cidr_block": "",
+                "local_gateway_id": "",
+                "nat_gateway_id": "nat-0b97336abbb1ec294",
+                "network_interface_id": "",
+                "odb_network_arn": "",
+                "transit_gateway_id": "",
+                "vpc_endpoint_id": "",
+                "vpc_peering_connection_id": ""
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-private-rt"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-private-rt"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtb-0251a47369510add8",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_eip.nat",
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_nat_gateway.nat",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:route-table/rtb-0099918c4af4a0c69",
+            "id": "rtb-0099918c4af4a0c69",
+            "owner_id": "136191772799",
+            "propagating_vgws": [],
+            "region": "ap-south-1",
+            "route": [
+              {
+                "carrier_gateway_id": "",
+                "cidr_block": "0.0.0.0/0",
+                "core_network_arn": "",
+                "destination_prefix_list_id": "",
+                "egress_only_gateway_id": "",
+                "gateway_id": "igw-010bbad35c5478ff2",
+                "ipv6_cidr_block": "",
+                "local_gateway_id": "",
+                "nat_gateway_id": "",
+                "network_interface_id": "",
+                "odb_network_arn": "",
+                "transit_gateway_id": "",
+                "vpc_endpoint_id": "",
+                "vpc_peering_connection_id": ""
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-public-rt"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-public-rt"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtb-0099918c4af4a0c69",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-01d3efd950a48b330",
+            "region": "ap-south-1",
+            "route_table_id": "rtb-0251a47369510add8",
+            "subnet_id": "subnet-0742b74c53b5df684",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-01d3efd950a48b330",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_eip.nat",
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_nat_gateway.nat",
+            "module.mumbai_app.aws_route_table.private",
+            "module.mumbai_app.aws_subnet.private",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0cf49deeba4cf0988",
+            "region": "ap-south-1",
+            "route_table_id": "rtb-0251a47369510add8",
+            "subnet_id": "subnet-02be2e95ea801b654",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0cf49deeba4cf0988",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_eip.nat",
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_nat_gateway.nat",
+            "module.mumbai_app.aws_route_table.private",
+            "module.mumbai_app.aws_subnet.private",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-075550175fa4f1ac6",
+            "region": "ap-south-1",
+            "route_table_id": "rtb-0099918c4af4a0c69",
+            "subnet_id": "subnet-04f0b30565f74ed9a",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-075550175fa4f1ac6",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_route_table.public",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0e2919d5021d0033a",
+            "region": "ap-south-1",
+            "route_table_id": "rtb-0099918c4af4a0c69",
+            "subnet_id": "subnet-01fb544da64291bf7",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0e2919d5021d0033a",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.mumbai_app.aws_internet_gateway.igw",
+            "module.mumbai_app.aws_route_table.public",
+            "module.mumbai_app.aws_subnet.public",
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "alb_sg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:security-group/sg-02503aafed4d3b18c",
+            "description": "Allow HTTP traffic to the load balancer",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-02503aafed4d3b18c",
+            "ingress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "HTTP from internet",
+                "from_port": 80,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": false,
+                "to_port": 80
+              }
+            ],
+            "name": "self-healing-storage-ap-south-1-alb-sg",
+            "name_prefix": "",
+            "owner_id": "136191772799",
+            "region": "ap-south-1",
+            "revoke_rules_on_delete": false,
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "sg-02503aafed4d3b18c",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "ec2_sg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:security-group/sg-0a91aa838d14708d8",
+            "description": "Allow application traffic only from ALB",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-0a91aa838d14708d8",
+            "ingress": [
+              {
+                "cidr_blocks": [],
+                "description": "Application traffic from ALB",
+                "from_port": 5000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-02503aafed4d3b18c"
+                ],
+                "self": false,
+                "to_port": 5000
+              }
+            ],
+            "name": "self-healing-storage-ap-south-1-ec2-sg",
+            "name_prefix": "",
+            "owner_id": "136191772799",
+            "region": "ap-south-1",
+            "revoke_rules_on_delete": false,
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "sg-0a91aa838d14708d8",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "module.mumbai_app.aws_security_group.alb_sg",
+            "module.mumbai_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:subnet/subnet-0742b74c53b5df684",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-south-1a",
+            "availability_zone_id": "aps1-az1",
+            "cidr_block": "10.0.10.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-0742b74c53b5df684",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-private-1"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-private-1"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-0742b74c53b5df684",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:subnet/subnet-02be2e95ea801b654",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-south-1b",
+            "availability_zone_id": "aps1-az3",
+            "cidr_block": "10.0.11.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-02be2e95ea801b654",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-private-2"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-private-2"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-02be2e95ea801b654",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:subnet/subnet-04f0b30565f74ed9a",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-south-1a",
+            "availability_zone_id": "aps1-az1",
+            "cidr_block": "10.0.0.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-04f0b30565f74ed9a",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-public-1"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-public-1"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-04f0b30565f74ed9a",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:subnet/subnet-01fb544da64291bf7",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-south-1b",
+            "availability_zone_id": "aps1-az3",
+            "cidr_block": "10.0.1.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-01fb544da64291bf7",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-public-2"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-public-2"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-020fc86c8a6d95fb0"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-01fb544da64291bf7",
+            "region": "ap-south-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.mumbai_app.aws_vpc.app_vpc",
+            "module.mumbai_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.mumbai_app",
+      "mode": "managed",
+      "type": "aws_vpc",
+      "name": "app_vpc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:136191772799:vpc/vpc-020fc86c8a6d95fb0",
+            "assign_generated_ipv6_cidr_block": false,
+            "cidr_block": "10.0.0.0/16",
+            "default_network_acl_id": "acl-08ecfaf28ec324e23",
+            "default_route_table_id": "rtb-0c27cff1fa882eddd",
+            "default_security_group_id": "sg-012896c2db3368c92",
+            "dhcp_options_id": "dopt-049ef1f799c5b4779",
+            "enable_dns_hostnames": true,
+            "enable_dns_support": true,
+            "enable_network_address_usage_metrics": false,
+            "id": "vpc-020fc86c8a6d95fb0",
+            "instance_tenancy": "default",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_association_id": "",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_network_border_group": "",
+            "ipv6_ipam_pool_id": "",
+            "ipv6_netmask_length": 0,
+            "main_route_table_id": "rtb-0c27cff1fa882eddd",
+            "owner_id": "136191772799",
+            "region": "ap-south-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-south-1-vpc"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-south-1-vpc"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "vpc-020fc86c8a6d95fb0",
+            "region": "ap-south-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "data",
+      "type": "aws_ami",
+      "name": "amazon_linux",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allow_unsafe_filter": null,
+            "architecture": "x86_64",
+            "arn": "arn:aws:ec2:ap-southeast-1::image/ami-04813686067ebc1be",
+            "block_device_mappings": [
+              {
+                "device_name": "/dev/xvda",
+                "ebs": {
+                  "delete_on_termination": "true",
+                  "encrypted": "false",
+                  "iops": "3000",
+                  "snapshot_id": "snap-054d0464d7e665038",
+                  "throughput": "125",
+                  "volume_initialization_rate": "0",
+                  "volume_size": "8",
+                  "volume_type": "gp3"
+                },
+                "no_device": "",
+                "virtual_name": ""
+              }
+            ],
+            "boot_mode": "uefi-preferred",
+            "creation_date": "2026-11-12T13:01:24.000Z",
+            "deprecation_time": "2027-02-10T13:03:00.000Z",
+            "description": "Amazon Linux 2023 AMI 2023.12.20261112.0 x86_64 HVM kernel-6.12",
+            "ena_support": true,
+            "executable_users": null,
+            "filter": [
+              {
+                "name": "architecture",
+                "values": [
+                  "x86_64"
+                ]
+              },
+              {
+                "name": "name",
+                "values": [
+                  "al2023-ami-2023.*-x86_64"
+                ]
+              },
+              {
+                "name": "virtualization-type",
+                "values": [
+                  "hvm"
+                ]
+              }
+            ],
+            "hypervisor": "xen",
+            "id": "ami-04813686067ebc1be",
+            "image_id": "ami-04813686067ebc1be",
+            "image_location": "amazon/al2023-ami-2023.12.20261112.0-kernel-6.12-x86_64",
+            "image_owner_alias": "amazon",
+            "image_type": "machine",
+            "imds_support": "v2.0",
+            "include_deprecated": false,
+            "kernel_id": "",
+            "last_launched_time": "",
+            "most_recent": true,
+            "name": "al2023-ami-2023.12.20261112.0-kernel-6.12-x86_64",
+            "name_regex": null,
+            "owner_id": "137112412989",
+            "owners": [
+              "amazon"
+            ],
+            "platform": "",
+            "platform_details": "Linux/UNIX",
+            "product_codes": [],
+            "public": true,
+            "ramdisk_id": "",
+            "region": "ap-southeast-1",
+            "root_device_name": "/dev/xvda",
+            "root_device_type": "ebs",
+            "root_snapshot_id": "snap-054d0464d7e665038",
+            "sriov_net_support": "simple",
+            "state": "available",
+            "state_reason": {
+              "code": "UNSET",
+              "message": "UNSET"
+            },
+            "tags": {},
+            "timeouts": null,
+            "tpm_support": "",
+            "uefi_data": null,
+            "usage_operation": "RunInstances",
+            "virtualization_type": "hvm"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "data",
+      "type": "aws_availability_zones",
+      "name": "available",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "all_availability_zones": null,
+            "exclude_names": null,
+            "exclude_zone_ids": null,
+            "filter": null,
+            "group_names": [
+              "ap-southeast-1-zg-1"
+            ],
+            "id": "ap-southeast-1",
+            "names": [
+              "ap-southeast-1a",
+              "ap-southeast-1b",
+              "ap-southeast-1c"
+            ],
+            "region": "ap-southeast-1",
+            "state": "available",
+            "timeouts": null,
+            "zone_ids": [
+              "apse1-az2",
+              "apse1-az1",
+              "apse1-az3"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_autoscaling_group",
+      "name": "app_asg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:autoscaling:ap-southeast-1:136191772799:autoScalingGroup:ef6858d4-cf33-462a-bcc4-0b472bbecd39:autoScalingGroupName/self-healing-storage-ap-southeast-1-asg",
+            "availability_zone_distribution": [
+              {
+                "capacity_distribution_strategy": "balanced-best-effort"
+              }
+            ],
+            "availability_zones": [
+              "ap-southeast-1a",
+              "ap-southeast-1b"
+            ],
+            "capacity_rebalance": false,
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "default",
+                "capacity_reservation_target": []
+              }
+            ],
+            "context": "",
+            "default_cooldown": 300,
+            "default_instance_warmup": 0,
+            "desired_capacity": 2,
+            "desired_capacity_type": "",
+            "enabled_metrics": null,
+            "force_delete": false,
+            "force_delete_warm_pool": false,
+            "health_check_grace_period": 300,
+            "health_check_type": "ELB",
+            "id": "self-healing-storage-ap-southeast-1-asg",
+            "ignore_failed_scaling_activities": false,
+            "initial_lifecycle_hook": [],
+            "instance_lifecycle_policy": [
+              {
+                "retention_triggers": [
+                  {
+                    "terminate_hook_abandon": "terminate"
+                  }
+                ]
+              }
+            ],
+            "instance_maintenance_policy": [],
+            "instance_refresh": [],
+            "launch_configuration": "",
+            "launch_template": [
+              {
+                "id": "lt-0956a823907520faf",
+                "name": "self-healing-storage-ap-southeast-1-fff908725c6e7abd7fa6f23a8c",
+                "version": "$Latest"
+              }
+            ],
+            "load_balancers": [],
+            "max_instance_lifetime": 0,
+            "max_size": 4,
+            "metrics_granularity": "1Minute",
+            "min_elb_capacity": null,
+            "min_size": 2,
+            "mixed_instances_policy": [],
+            "name": "self-healing-storage-ap-southeast-1-asg",
+            "name_prefix": "",
+            "placement_group": "",
+            "predicted_capacity": 0,
+            "protect_from_scale_in": false,
+            "region": "ap-southeast-1",
+            "service_linked_role_arn": "arn:aws:iam::136191772799:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+            "suspended_processes": null,
+            "tag": [
+              {
+                "key": "Name",
+                "propagate_at_launch": false,
+                "value": "self-healing-storage-ap-southeast-1-asg"
+              }
+            ],
+            "target_group_arns": [
+              "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6"
+            ],
+            "termination_policies": null,
+            "timeouts": null,
+            "traffic_source": [
+              {
+                "identifier": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+                "type": "elbv2"
+              }
+            ],
+            "vpc_zone_identifier": [
+              "subnet-01a549468bb556396",
+              "subnet-0ee1785701d288af4"
+            ],
+            "wait_for_capacity_timeout": "10m",
+            "wait_for_elb_capacity": null,
+            "warm_pool": [],
+            "warm_pool_size": 0
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "name": "self-healing-storage-ap-southeast-1-asg",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjo2MDAwMDAwMDAwMDAsInVwZGF0ZSI6NjAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "aws_iam_instance_profile.ec2_profile",
+            "aws_iam_role.ec2_role",
+            "module.singapore_app.aws_eip.nat",
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_launch_template.app",
+            "module.singapore_app.aws_lb.app_alb",
+            "module.singapore_app.aws_lb_listener.http",
+            "module.singapore_app.aws_lb_target_group.app_tg",
+            "module.singapore_app.aws_nat_gateway.nat",
+            "module.singapore_app.aws_route_table.private",
+            "module.singapore_app.aws_route_table_association.private",
+            "module.singapore_app.aws_security_group.alb_sg",
+            "module.singapore_app.aws_security_group.ec2_sg",
+            "module.singapore_app.aws_subnet.private",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_ami.amazon_linux",
+            "module.singapore_app.data.aws_availability_zones.available",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_eip",
+      "name": "nat",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address": null,
+            "allocation_id": "eipalloc-0efd2520a7781d91b",
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:elastic-ip/eipalloc-0efd2520a7781d91b",
+            "associate_with_private_ip": null,
+            "association_id": "",
+            "carrier_ip": "",
+            "customer_owned_ip": "",
+            "customer_owned_ipv4_pool": "",
+            "domain": "vpc",
+            "id": "eipalloc-0efd2520a7781d91b",
+            "instance": "",
+            "ipam_pool_id": "",
+            "network_border_group": "ap-southeast-1",
+            "network_interface": "",
+            "private_dns": "",
+            "private_ip": "",
+            "ptr_record": "",
+            "public_dns": "ec2-47-131-68-121.ap-southeast-1.compute.amazonaws.com",
+            "public_ip": "47.131.68.121",
+            "public_ipv4_pool": "amazon",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-nat-eip"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-nat-eip"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "eipalloc-0efd2520a7781d91b",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjoxODAwMDAwMDAwMDAsInJlYWQiOjkwMDAwMDAwMDAwMCwidXBkYXRlIjozMDAwMDAwMDAwMDB9fQ=="
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_internet_gateway",
+      "name": "igw",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:internet-gateway/igw-071094c4f58e6d2c4",
+            "id": "igw-071094c4f58e6d2c4",
+            "owner_id": "136191772799",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-igw"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-igw"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "igw-071094c4f58e6d2c4",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_launch_template",
+      "name": "app",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:launch-template/lt-0956a823907520faf",
+            "block_device_mappings": [],
+            "capacity_reservation_specification": [],
+            "cpu_options": [],
+            "credit_specification": [],
+            "default_version": 1,
+            "description": "",
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_optimized": "",
+            "enclave_options": [],
+            "hibernation_options": [],
+            "iam_instance_profile": [
+              {
+                "arn": "",
+                "name": "self-healing-storage-ec2-profile"
+              }
+            ],
+            "id": "lt-0956a823907520faf",
+            "image_id": "ami-04813686067ebc1be",
+            "instance_initiated_shutdown_behavior": "",
+            "instance_market_options": [],
+            "instance_requirements": [],
+            "instance_type": "t3.micro",
+            "kernel_id": "",
+            "key_name": "",
+            "latest_version": 1,
+            "license_specification": [],
+            "maintenance_options": [],
+            "metadata_options": [],
+            "monitoring": [],
+            "name": "self-healing-storage-ap-southeast-1-fff908725c6e7abd7fa6f23a8c",
+            "name_prefix": "self-healing-storage-ap-southeast-1-",
+            "network_interfaces": [],
+            "network_performance_options": [],
+            "placement": [],
+            "private_dns_name_options": [],
+            "ram_disk_id": "",
+            "region": "ap-southeast-1",
+            "secondary_interfaces": [],
+            "security_group_names": null,
+            "tag_specifications": [
+              {
+                "resource_type": "instance",
+                "tags": {
+                  "Name": "self-healing-storage-ap-southeast-1-web"
+                }
+              }
+            ],
+            "tags": null,
+            "tags_all": {},
+            "update_default_version": null,
+            "user_data": "DQojIS9iaW4vYmFzaA0Kc2V0IC1ldXhvIHBpcGVmYWlsDQoNCmRuZiBpbnN0YWxsIC15IHB5dGhvbjMgcHl0aG9uMy1waXANCg0KbWtkaXIgLXAgL29wdC9zdG9yYWdlLWFwcA0KDQpweXRob24zIC1tIHZlbnYgL29wdC9zdG9yYWdlLWFwcC92ZW52DQoNCi9vcHQvc3RvcmFnZS1hcHAvdmVudi9iaW4vcGlwIGluc3RhbGwgLS11cGdyYWRlIHBpcA0KL29wdC9zdG9yYWdlLWFwcC92ZW52L2Jpbi9waXAgaW5zdGFsbCBmbGFzayBib3RvMyBndW5pY29ybg0KDQpjYXQgPiAvb3B0L3N0b3JhZ2UtYXBwL2FwcC5weSA8PCdQWVRIT04nDQppbXBvcnQgb3MNCmltcG9ydCBib3RvMw0KZnJvbSBmbGFzayBpbXBvcnQgRmxhc2ssIHJlcXVlc3QsIHJlZGlyZWN0LCB1cmxfZm9yLCByZW5kZXJfdGVtcGxhdGVfc3RyaW5nDQpmcm9tIHdlcmt6ZXVnLnV0aWxzIGltcG9ydCBzZWN1cmVfZmlsZW5hbWUNCmZyb20gYm90b2NvcmUuZXhjZXB0aW9ucyBpbXBvcnQgQm90b0NvcmVFcnJvciwgQ2xpZW50RXJyb3INCg0KYXBwID0gRmxhc2soX19uYW1lX18pDQoNClBSSU1BUllfQlVDS0VUID0gInNlbGYtaGVhbGluZy1zdG9yYWdlLXNpbmdhcG9yZS0yNzI5NDg3YiINClNFQ09OREFSWV9CVUNLRVQgPSAic2VsZi1oZWFsaW5nLXN0b3JhZ2UtbXVtYmFpLTI3Mjk0ODdiIg0KUFJJTUFSWV9SRUdJT04gPSAiYXAtc291dGhlYXN0LTEiDQpTRUNPTkRBUllfUkVHSU9OID0gImFwLXNvdXRoLTEiDQoNCmFwcC5jb25maWdbIk1BWF9DT05URU5UX0xFTkdUSCJdID0gMTAgKiAxMDI0ICogMTAyNA0KDQpIVE1MID0gIiIiDQo8IURPQ1RZUEUgaHRtbD4NCjxodG1sPg0KPGhlYWQ+DQogICAgPHRpdGxlPlNlbGYtSGVhbGluZyBDbG91ZCBTdG9yYWdlPC90aXRsZT4NCiAgICA8c3R5bGU+DQogICAgICAgIGJvZHkgew0KICAgICAgICAgICAgZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOw0KICAgICAgICAgICAgYmFja2dyb3VuZDogI2YzZjZmYjsNCiAgICAgICAgICAgIG1hcmdpbjogMDsNCiAgICAgICAgICAgIHBhZGRpbmc6IDQwcHg7DQogICAgICAgIH0NCiAgICAgICAgLmNvbnRhaW5lciB7DQogICAgICAgICAgICBtYXgtd2lkdGg6IDg1MHB4Ow0KICAgICAgICAgICAgbWFyZ2luOiBhdXRvOw0KICAgICAgICAgICAgYmFja2dyb3VuZDogd2hpdGU7DQogICAgICAgICAgICBwYWRkaW5nOiAzMHB4Ow0KICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMTJweDsNCiAgICAgICAgICAgIGJveC1zaGFkb3c6IDAgNHB4IDE1cHggIzAwMDE7DQogICAgICAgIH0NCiAgICAgICAgaDEgeyBjb2xvcjogIzE4M2I2NTsgfQ0KICAgICAgICAuc3RhdHVzIHsgY29sb3I6IGdyZWVuOyBmb250LXdlaWdodDogYm9sZDsgfQ0KICAgICAgICBidXR0b24gew0KICAgICAgICAgICAgYmFja2dyb3VuZDogIzE3NjlhYTsNCiAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTsNCiAgICAgICAgICAgIGJvcmRlcjogMDsNCiAgICAgICAgICAgIHBhZGRpbmc6IDEwcHggMThweDsNCiAgICAgICAgICAgIGN1cnNvcjogcG9pbnRlcjsNCiAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDVweDsNCiAgICAgICAgfQ0KICAgICAgICBsaSB7IG1hcmdpbjogMTJweCAwOyB9DQogICAgICAgIGEgeyBjb2xvcjogIzE3NjlhYTsgfQ0KICAgIDwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keT4NCjxkaXYgY2xhc3M9ImNvbnRhaW5lciI+DQogICAgPGgxPlNlbGYtSGVhbGluZyBDbG91ZCBTdG9yYWdlPC9oMT4NCiAgICA8cCBjbGFzcz0ic3RhdHVzIj5BcHBsaWNhdGlvbiBpcyBydW5uaW5nPC9wPg0KICAgIDxwPjxiPlJlZ2lvbjo8L2I+IHt7IHJlZ2lvbiB9fTwvcD4NCiAgICA8cD48Yj5BY3RpdmUgc3RvcmFnZSBidWNrZXQ6PC9iPiB7eyBidWNrZXQgfX08L3A+DQoNCiAgICA8aDI+VXBsb2FkIGEgZmlsZTwvaDI+DQogICAgPGZvcm0gYWN0aW9uPSIvdXBsb2FkIiBtZXRob2Q9IlBPU1QiIGVuY3R5cGU9Im11bHRpcGFydC9mb3JtLWRhdGEiPg0KICAgICAgICA8aW5wdXQgdHlwZT0iZmlsZSIgbmFtZT0iZmlsZSIgcmVxdWlyZWQ+DQogICAgICAgIDxidXR0b24gdHlwZT0ic3VibWl0Ij5VcGxvYWQ8L2J1dHRvbj4NCiAgICA8L2Zvcm0+DQoNCiAgICA8aDI+U3RvcmVkIGZpbGVzPC9oMj4NCiAgICB7JSBpZiBmaWxlcyAlfQ0KICAgICAgICA8dWw+DQogICAgICAgIHslIGZvciBpdGVtIGluIGZpbGVzICV9DQogICAgICAgICAgICA8bGk+DQogICAgICAgICAgICAgICAge3sgaXRlbSB9fQ0KICAgICAgICAgICAgICAgIDxhIGhyZWY9Ii9kb3dubG9hZC97eyBpdGVtIH19Ij5Eb3dubG9hZDwvYT4NCiAgICAgICAgICAgIDwvbGk+DQogICAgICAgIHslIGVuZGZvciAlfQ0KICAgICAgICA8L3VsPg0KICAgIHslIGVsc2UgJX0NCiAgICAgICAgPHA+Tm8gZmlsZXMgZm91bmQgb3Igc3RvcmFnZSBpcyB0ZW1wb3JhcmlseSB1bmF2YWlsYWJsZS48L3A+DQogICAgeyUgZW5kaWYgJX0NCg0KICAgIHslIGlmIG1lc3NhZ2UgJX0NCiAgICAgICAgPHA+PGI+e3sgbWVzc2FnZSB9fTwvYj48L3A+DQogICAgeyUgZW5kaWYgJX0NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0KIiIiDQoNCmRlZiBzM19jbGllbnQocmVnaW9uKToNCiAgICByZXR1cm4gYm90bzMuY2xpZW50KCJzMyIsIHJlZ2lvbl9uYW1lPXJlZ2lvbikNCg0KZGVmIGJ1Y2tldF9sb2NhdGlvbnMoKToNCiAgICByZXR1cm4gWw0KICAgICAgICAoUFJJTUFSWV9CVUNLRVQsIFBSSU1BUllfUkVHSU9OKSwNCiAgICAgICAgKFNFQ09OREFSWV9CVUNLRVQsIFNFQ09OREFSWV9SRUdJT04pDQogICAgXQ0KDQpkZWYgbGlzdF9maWxlcygpOg0KICAgIHJlc3VsdHMgPSBbXQ0KDQogICAgZm9yIGJ1Y2tldCwgcmVnaW9uIGluIGJ1Y2tldF9sb2NhdGlvbnMoKToNCiAgICAgICAgdHJ5Og0KICAgICAgICAgICAgcmVzcG9uc2UgPSBzM19jbGllbnQocmVnaW9uKS5saXN0X29iamVjdHNfdjIoQnVja2V0PWJ1Y2tldCkNCg0KICAgICAgICAgICAgZm9yIG9iaiBpbiByZXNwb25zZS5nZXQoIkNvbnRlbnRzIiwgW10pOg0KICAgICAgICAgICAgICAgIHJlc3VsdHMuYXBwZW5kKG9ialsiS2V5Il0pDQoNCiAgICAgICAgZXhjZXB0IChDbGllbnRFcnJvciwgQm90b0NvcmVFcnJvcik6DQogICAgICAgICAgICBjb250aW51ZQ0KDQogICAgcmV0dXJuIHNvcnRlZChzZXQocmVzdWx0cykpDQoNCkBhcHAucm91dGUoIi9oZWFsdGgiKQ0KZGVmIGhlYWx0aCgpOg0KICAgIHJldHVybiB7InN0YXR1cyI6ICJoZWFsdGh5IiwgInJlZ2lvbiI6IFBSSU1BUllfUkVHSU9OfSwgMjAwDQoNCkBhcHAucm91dGUoIi8iKQ0KZGVmIGhvbWUoKToNCiAgICByZXR1cm4gcmVuZGVyX3RlbXBsYXRlX3N0cmluZygNCiAgICAgICAgSFRNTCwNCiAgICAgICAgcmVnaW9uPVBSSU1BUllfUkVHSU9OLA0KICAgICAgICBidWNrZXQ9UFJJTUFSWV9CVUNLRVQsDQogICAgICAgIGZpbGVzPWxpc3RfZmlsZXMoKSwNCiAgICAgICAgbWVzc2FnZT1yZXF1ZXN0LmFyZ3MuZ2V0KCJtZXNzYWdlIiwgIiIpDQogICAgKQ0KDQpAYXBwLnJvdXRlKCIvdXBsb2FkIiwgbWV0aG9kcz1bIlBPU1QiXSkNCmRlZiB1cGxvYWQoKToNCiAgICB1cGxvYWRlZF9maWxlID0gcmVxdWVzdC5maWxlcy5nZXQoImZpbGUiKQ0KDQogICAgaWYgbm90IHVwbG9hZGVkX2ZpbGUgb3Igbm90IHVwbG9hZGVkX2ZpbGUuZmlsZW5hbWU6DQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT0iUGxlYXNlIHNlbGVjdCBhIGZpbGUiKSkNCg0KICAgIGZpbGVuYW1lID0gc2VjdXJlX2ZpbGVuYW1lKHVwbG9hZGVkX2ZpbGUuZmlsZW5hbWUpDQoNCiAgICB0cnk6DQogICAgICAgIGNvbnRlbnQgPSB1cGxvYWRlZF9maWxlLnJlYWQoKQ0KDQogICAgICAgIHRyeToNCiAgICAgICAgICAgIHMzX2NsaWVudChQUklNQVJZX1JFR0lPTikucHV0X29iamVjdCgNCiAgICAgICAgICAgICAgICBCdWNrZXQ9UFJJTUFSWV9CVUNLRVQsDQogICAgICAgICAgICAgICAgS2V5PWZpbGVuYW1lLA0KICAgICAgICAgICAgICAgIEJvZHk9Y29udGVudA0KICAgICAgICAgICAgKQ0KICAgICAgICAgICAgbWVzc2FnZSA9ICJGaWxlIHVwbG9hZGVkIHRvIHRoZSBsb2NhbCByZWdpb25hbCBidWNrZXQuIg0KDQogICAgICAgIGV4Y2VwdCAoQ2xpZW50RXJyb3IsIEJvdG9Db3JlRXJyb3IpOg0KICAgICAgICAgICAgczNfY2xpZW50KFNFQ09OREFSWV9SRUdJT04pLnB1dF9vYmplY3QoDQogICAgICAgICAgICAgICAgQnVja2V0PVNFQ09OREFSWV9CVUNLRVQsDQogICAgICAgICAgICAgICAgS2V5PWZpbGVuYW1lLA0KICAgICAgICAgICAgICAgIEJvZHk9Y29udGVudA0KICAgICAgICAgICAgKQ0KICAgICAgICAgICAgbWVzc2FnZSA9ICJQcmltYXJ5IHN0b3JhZ2UgdW5hdmFpbGFibGUuIEZpbGUgdXBsb2FkZWQgdG8gc2Vjb25kYXJ5IHN0b3JhZ2UuIg0KDQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT1tZXNzYWdlKSkNCg0KICAgIGV4Y2VwdCBFeGNlcHRpb246DQogICAgICAgIHJldHVybiByZWRpcmVjdCh1cmxfZm9yKCJob21lIiwgbWVzc2FnZT0iVXBsb2FkIGZhaWxlZC4gQ2hlY2sgYXBwbGljYXRpb24gbG9ncy4iKSkNCg0KQGFwcC5yb3V0ZSgiL2Rvd25sb2FkLzxwYXRoOmZpbGVuYW1lPiIpDQpkZWYgZG93bmxvYWQoZmlsZW5hbWUpOg0KICAgIGZyb20gZmxhc2sgaW1wb3J0IFJlc3BvbnNlDQoNCiAgICBmb3IgYnVja2V0LCByZWdpb24gaW4gYnVja2V0X2xvY2F0aW9ucygpOg0KICAgICAgICB0cnk6DQogICAgICAgICAgICByZXNwb25zZSA9IHMzX2NsaWVudChyZWdpb24pLmdldF9vYmplY3QoDQogICAgICAgICAgICAgICAgQnVja2V0PWJ1Y2tldCwNCiAgICAgICAgICAgICAgICBLZXk9ZmlsZW5hbWUNCiAgICAgICAgICAgICkNCg0KICAgICAgICAgICAgcmV0dXJuIFJlc3BvbnNlKA0KICAgICAgICAgICAgICAgIHJlc3BvbnNlWyJCb2R5Il0ucmVhZCgpLA0KICAgICAgICAgICAgICAgIG1pbWV0eXBlPSJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0iLA0KICAgICAgICAgICAgICAgIGhlYWRlcnM9ew0KICAgICAgICAgICAgICAgICAgICAiQ29udGVudC1EaXNwb3NpdGlvbiI6ICdhdHRhY2htZW50OyBmaWxlbmFtZT0iJyArIHNlY3VyZV9maWxlbmFtZShmaWxlbmFtZSkgKyAnIicNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICApDQoNCiAgICAgICAgZXhjZXB0IChDbGllbnRFcnJvciwgQm90b0NvcmVFcnJvcik6DQogICAgICAgICAgICBjb250aW51ZQ0KDQogICAgcmV0dXJuICJGaWxlIG5vdCBmb3VuZCBpbiBlaXRoZXIgc3RvcmFnZSByZWdpb24iLCA0MDQNCg0KaWYgX19uYW1lX18gPT0gIl9fbWFpbl9fIjoNCiAgICBhcHAucnVuKGhvc3Q9IjAuMC4wLjAiLCBwb3J0PTUwMDApDQpQWVRIT04NCg0KY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS9zdG9yYWdlLWFwcC5zZXJ2aWNlIDw8J1NFUlZJQ0UnDQpbVW5pdF0NCkRlc2NyaXB0aW9uPVNlbGYgSGVhbGluZyBTdG9yYWdlIEZsYXNrIEFwcGxpY2F0aW9uDQpBZnRlcj1uZXR3b3JrLW9ubGluZS50YXJnZXQNCldhbnRzPW5ldHdvcmstb25saW5lLnRhcmdldA0KDQpbU2VydmljZV0NCldvcmtpbmdEaXJlY3Rvcnk9L29wdC9zdG9yYWdlLWFwcA0KRXhlY1N0YXJ0PS9vcHQvc3RvcmFnZS1hcHAvdmVudi9iaW4vZ3VuaWNvcm4gLS13b3JrZXJzIDIgLS1iaW5kIDAuMC4wLjA6NTAwMCBhcHA6YXBwDQpSZXN0YXJ0PWFsd2F5cw0KUmVzdGFydFNlYz01DQoNCltJbnN0YWxsXQ0KV2FudGVkQnk9bXVsdGktdXNlci50YXJnZXQNClNFUlZJQ0UNCg0Kc3lzdGVtY3RsIGRhZW1vbi1yZWxvYWQNCnN5c3RlbWN0bCBlbmFibGUgc3RvcmFnZS1hcHANCnN5c3RlbWN0bCBzdGFydCBzdG9yYWdlLWFwcA0KQGFwcC5yb3V0ZSgiL3JlYWR5IikNCmRlZiByZWFkeSgpOg0KICAgIHRyeToNCiAgICAgICAgczNfY2xpZW50KFBSSU1BUllfUkVHSU9OKS5oZWFkX2J1Y2tldChCdWNrZXQ9UFJJTUFSWV9CVUNLRVQpDQogICAgICAgIHJldHVybiB7InN0YXR1cyI6ICJyZWFkeSJ9LCAyMDANCiAgICBleGNlcHQgRXhjZXB0aW9uOg0KICAgICAgICByZXR1cm4geyJzdGF0dXMiOiAic3RvcmFnZSB1bmF2YWlsYWJsZSJ9LCA1MDM=",
+            "vpc_security_group_ids": [
+              "sg-0ff3220c2a4b737a0"
+            ]
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "lt-0956a823907520faf",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_iam_instance_profile.ec2_profile",
+            "aws_iam_role.ec2_role",
+            "module.singapore_app.aws_security_group.alb_sg",
+            "module.singapore_app.aws_security_group.ec2_sg",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_ami.amazon_linux",
+            "random_id.bucket_suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_lb",
+      "name": "app_alb",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:loadbalancer/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056",
+            "arn_suffix": "app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056",
+            "client_keep_alive": 3600,
+            "connection_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "customer_owned_ipv4_pool": "",
+            "desync_mitigation_mode": "defensive",
+            "dns_name": "selfheal-ap-southeast-1-alb-1250396488.ap-southeast-1.elb.amazonaws.com",
+            "dns_record_client_routing_policy": null,
+            "drop_invalid_header_fields": false,
+            "enable_cross_zone_load_balancing": true,
+            "enable_deletion_protection": false,
+            "enable_http2": true,
+            "enable_prefix_for_ipv6_source_nat": "off",
+            "enable_tls_version_and_cipher_suite_headers": false,
+            "enable_waf_fail_open": false,
+            "enable_xff_client_port": false,
+            "enable_zonal_shift": false,
+            "enforce_security_group_inbound_rules_on_private_link_traffic": "",
+            "health_check_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:loadbalancer/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056",
+            "idle_timeout": 60,
+            "internal": false,
+            "ip_address_type": "ipv4",
+            "ipam_pools": [],
+            "load_balancer_type": "application",
+            "minimum_load_balancer_capacity": [],
+            "name": "selfheal-ap-southeast-1-alb",
+            "name_prefix": "",
+            "preserve_host_header": false,
+            "region": "ap-southeast-1",
+            "secondary_ips_auto_assigned_per_subnet": null,
+            "security_groups": [
+              "sg-0d51dbfa2dc8dc592"
+            ],
+            "subnet_mapping": [
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-0b0c327dfeeab28c0"
+              },
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-0daf5ad68cb72684a"
+              }
+            ],
+            "subnets": [
+              "subnet-0b0c327dfeeab28c0",
+              "subnet-0daf5ad68cb72684a"
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-alb"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-alb"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef",
+            "xff_header_processing_mode": "append",
+            "zone_id": "Z1LMS91P8CMLE5"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:loadbalancer/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_security_group.alb_sg",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "http",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:listener/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056/02de1330008ea7f6",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "jwt_validation": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:listener/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056/02de1330008ea7f6",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:loadbalancer/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056",
+            "mutual_authentication": [],
+            "port": 80,
+            "protocol": "HTTP",
+            "region": "ap-southeast-1",
+            "routing_http_request_x_amzn_mtls_clientcert_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_issuer_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_leaf_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_subject_header_name": null,
+            "routing_http_request_x_amzn_mtls_clientcert_validity_header_name": null,
+            "routing_http_request_x_amzn_tls_cipher_suite_header_name": null,
+            "routing_http_request_x_amzn_tls_version_header_name": null,
+            "routing_http_response_access_control_allow_credentials_header_value": "",
+            "routing_http_response_access_control_allow_headers_header_value": "",
+            "routing_http_response_access_control_allow_methods_header_value": "",
+            "routing_http_response_access_control_allow_origin_header_value": "",
+            "routing_http_response_access_control_expose_headers_header_value": "",
+            "routing_http_response_access_control_max_age_header_value": "",
+            "routing_http_response_content_security_policy_header_value": "",
+            "routing_http_response_server_enabled": true,
+            "routing_http_response_strict_transport_security_header_value": "",
+            "routing_http_response_x_content_type_options_header_value": "",
+            "routing_http_response_x_frame_options_header_value": "",
+            "ssl_policy": "",
+            "tags": null,
+            "tags_all": {},
+            "tcp_idle_timeout_seconds": null,
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:listener/app/selfheal-ap-southeast-1-alb/79b9cf02f8dd4056/02de1330008ea7f6"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsInVwZGF0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.singapore_app.aws_lb.app_alb",
+            "module.singapore_app.aws_lb_target_group.app_tg",
+            "module.singapore_app.aws_security_group.alb_sg",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "app_tg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+            "arn_suffix": "targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+            "connection_termination": null,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 2,
+                "interval": 30,
+                "matcher": "200",
+                "path": "/health",
+                "port": "traffic-port",
+                "protocol": "HTTP",
+                "timeout": 5,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6",
+            "ip_address_type": "ipv4",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancer_arns": [],
+            "load_balancing_algorithm_type": "round_robin",
+            "load_balancing_anomaly_mitigation": "off",
+            "load_balancing_cross_zone_enabled": "use_load_balancer_configuration",
+            "name": "selfheal-ap-southeast-1-tg",
+            "name_prefix": "",
+            "port": 5000,
+            "preserve_client_ip": null,
+            "protocol": "HTTP",
+            "protocol_version": "HTTP1",
+            "proxy_protocol_v2": false,
+            "region": "ap-southeast-1",
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 86400,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "lb_cookie"
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-tg"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-tg"
+            },
+            "target_control_port": 0,
+            "target_failover": [
+              {
+                "on_deregistration": null,
+                "on_unhealthy": null
+              }
+            ],
+            "target_group_health": [
+              {
+                "dns_failover": [
+                  {
+                    "minimum_healthy_targets_count": "1",
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ],
+                "unhealthy_state_routing": [
+                  {
+                    "minimum_healthy_targets_count": 1,
+                    "minimum_healthy_targets_percentage": "off"
+                  }
+                ]
+              }
+            ],
+            "target_health_state": [
+              {
+                "enable_unhealthy_connection_termination": null,
+                "unhealthy_draining_interval": null
+              }
+            ],
+            "target_type": "instance",
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "arn": "arn:aws:elasticloadbalancing:ap-southeast-1:136191772799:targetgroup/selfheal-ap-southeast-1-tg/a31e5c036d57f5b6"
+          },
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_nat_gateway",
+      "name": "nat",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_id": "eipalloc-0efd2520a7781d91b",
+            "association_id": "eipassoc-016c5ef22cb897a34",
+            "auto_provision_zones": null,
+            "auto_scaling_ips": null,
+            "availability_mode": "zonal",
+            "availability_zone_address": [],
+            "connectivity_type": "public",
+            "id": "nat-00da52d95372d49ed",
+            "network_interface_id": "eni-072027fe1e5a6b981",
+            "private_ip": "10.1.0.92",
+            "public_ip": "47.131.68.121",
+            "region": "ap-southeast-1",
+            "regional_nat_gateway_address": [],
+            "regional_nat_gateway_auto_mode": null,
+            "route_table_id": null,
+            "secondary_allocation_ids": [],
+            "secondary_private_ip_address_count": 0,
+            "secondary_private_ip_addresses": [],
+            "subnet_id": "subnet-0daf5ad68cb72684a",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-nat"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-nat"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "nat-00da52d95372d49ed",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9fQ==",
+          "dependencies": [
+            "module.singapore_app.aws_eip.nat",
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:route-table/rtb-0ff2386003835c7ed",
+            "id": "rtb-0ff2386003835c7ed",
+            "owner_id": "136191772799",
+            "propagating_vgws": [],
+            "region": "ap-southeast-1",
+            "route": [
+              {
+                "carrier_gateway_id": "",
+                "cidr_block": "0.0.0.0/0",
+                "core_network_arn": "",
+                "destination_prefix_list_id": "",
+                "egress_only_gateway_id": "",
+                "gateway_id": "",
+                "ipv6_cidr_block": "",
+                "local_gateway_id": "",
+                "nat_gateway_id": "nat-00da52d95372d49ed",
+                "network_interface_id": "",
+                "odb_network_arn": "",
+                "transit_gateway_id": "",
+                "vpc_endpoint_id": "",
+                "vpc_peering_connection_id": ""
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-private-rt"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-private-rt"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtb-0ff2386003835c7ed",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_eip.nat",
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_nat_gateway.nat",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_route_table",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:route-table/rtb-0a08fdb0db25173ba",
+            "id": "rtb-0a08fdb0db25173ba",
+            "owner_id": "136191772799",
+            "propagating_vgws": [],
+            "region": "ap-southeast-1",
+            "route": [
+              {
+                "carrier_gateway_id": "",
+                "cidr_block": "0.0.0.0/0",
+                "core_network_arn": "",
+                "destination_prefix_list_id": "",
+                "egress_only_gateway_id": "",
+                "gateway_id": "igw-071094c4f58e6d2c4",
+                "ipv6_cidr_block": "",
+                "local_gateway_id": "",
+                "nat_gateway_id": "",
+                "network_interface_id": "",
+                "odb_network_arn": "",
+                "transit_gateway_id": "",
+                "vpc_endpoint_id": "",
+                "vpc_peering_connection_id": ""
+              }
+            ],
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-public-rt"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-public-rt"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtb-0a08fdb0db25173ba",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0409037d91b6ccc96",
+            "region": "ap-southeast-1",
+            "route_table_id": "rtb-0ff2386003835c7ed",
+            "subnet_id": "subnet-0ee1785701d288af4",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0409037d91b6ccc96",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_eip.nat",
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_nat_gateway.nat",
+            "module.singapore_app.aws_route_table.private",
+            "module.singapore_app.aws_subnet.private",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0fe9ae9cbcd006c9d",
+            "region": "ap-southeast-1",
+            "route_table_id": "rtb-0ff2386003835c7ed",
+            "subnet_id": "subnet-01a549468bb556396",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0fe9ae9cbcd006c9d",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_eip.nat",
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_nat_gateway.nat",
+            "module.singapore_app.aws_route_table.private",
+            "module.singapore_app.aws_subnet.private",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_route_table_association",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0437b7630995c0cad",
+            "region": "ap-southeast-1",
+            "route_table_id": "rtb-0a08fdb0db25173ba",
+            "subnet_id": "subnet-0daf5ad68cb72684a",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0437b7630995c0cad",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_route_table.public",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "gateway_id": "",
+            "id": "rtbassoc-0ea2b3a7d705230e9",
+            "region": "ap-southeast-1",
+            "route_table_id": "rtb-0a08fdb0db25173ba",
+            "subnet_id": "subnet-0b0c327dfeeab28c0",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "rtbassoc-0ea2b3a7d705230e9",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "module.singapore_app.aws_internet_gateway.igw",
+            "module.singapore_app.aws_route_table.public",
+            "module.singapore_app.aws_subnet.public",
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "alb_sg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:security-group/sg-0d51dbfa2dc8dc592",
+            "description": "Allow HTTP traffic to the load balancer",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-0d51dbfa2dc8dc592",
+            "ingress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "HTTP from internet",
+                "from_port": 80,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": false,
+                "to_port": 80
+              }
+            ],
+            "name": "self-healing-storage-ap-southeast-1-alb-sg",
+            "name_prefix": "",
+            "owner_id": "136191772799",
+            "region": "ap-southeast-1",
+            "revoke_rules_on_delete": false,
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "sg-0d51dbfa2dc8dc592",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "ec2_sg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:security-group/sg-0ff3220c2a4b737a0",
+            "description": "Allow application traffic only from ALB",
+            "egress": [
+              {
+                "cidr_blocks": [
+                  "0.0.0.0/0"
+                ],
+                "description": "",
+                "from_port": 0,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "-1",
+                "security_groups": [],
+                "self": false,
+                "to_port": 0
+              }
+            ],
+            "id": "sg-0ff3220c2a4b737a0",
+            "ingress": [
+              {
+                "cidr_blocks": [],
+                "description": "Application traffic from ALB",
+                "from_port": 5000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-0d51dbfa2dc8dc592"
+                ],
+                "self": false,
+                "to_port": 5000
+              }
+            ],
+            "name": "self-healing-storage-ap-southeast-1-ec2-sg",
+            "name_prefix": "",
+            "owner_id": "136191772799",
+            "region": "ap-southeast-1",
+            "revoke_rules_on_delete": false,
+            "tags": null,
+            "tags_all": {},
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "sg-0ff3220c2a4b737a0",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
+          "dependencies": [
+            "module.singapore_app.aws_security_group.alb_sg",
+            "module.singapore_app.aws_vpc.app_vpc"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "private",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:subnet/subnet-0ee1785701d288af4",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-southeast-1a",
+            "availability_zone_id": "apse1-az2",
+            "cidr_block": "10.1.10.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-0ee1785701d288af4",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-private-1"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-private-1"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-0ee1785701d288af4",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:subnet/subnet-01a549468bb556396",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-southeast-1b",
+            "availability_zone_id": "apse1-az1",
+            "cidr_block": "10.1.11.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-01a549468bb556396",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": false,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-private-2"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-private-2"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-01a549468bb556396",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_subnet",
+      "name": "public",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:subnet/subnet-0daf5ad68cb72684a",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-southeast-1a",
+            "availability_zone_id": "apse1-az2",
+            "cidr_block": "10.1.0.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-0daf5ad68cb72684a",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-public-1"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-public-1"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-0daf5ad68cb72684a",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:subnet/subnet-0b0c327dfeeab28c0",
+            "assign_ipv6_address_on_creation": false,
+            "availability_zone": "ap-southeast-1b",
+            "availability_zone_id": "apse1-az1",
+            "cidr_block": "10.1.1.0/24",
+            "customer_owned_ipv4_pool": "",
+            "enable_dns64": false,
+            "enable_lni_at_device_index": 0,
+            "enable_resource_name_dns_a_record_on_launch": false,
+            "enable_resource_name_dns_aaaa_record_on_launch": false,
+            "id": "subnet-0b0c327dfeeab28c0",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_association_id": "",
+            "ipv6_ipam_pool_id": null,
+            "ipv6_native": false,
+            "ipv6_netmask_length": null,
+            "map_customer_owned_ip_on_launch": false,
+            "map_public_ip_on_launch": true,
+            "outpost_arn": "",
+            "owner_id": "136191772799",
+            "private_dns_hostname_type_on_launch": "ip-name",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-public-2"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-public-2"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-08a0ca2678f0aabef"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "subnet-0b0c327dfeeab28c0",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "dependencies": [
+            "module.singapore_app.aws_vpc.app_vpc",
+            "module.singapore_app.data.aws_availability_zones.available"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.singapore_app",
+      "mode": "managed",
+      "type": "aws_vpc",
+      "name": "app_vpc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"].singapore",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-southeast-1:136191772799:vpc/vpc-08a0ca2678f0aabef",
+            "assign_generated_ipv6_cidr_block": false,
+            "cidr_block": "10.1.0.0/16",
+            "default_network_acl_id": "acl-08041988db29e51d3",
+            "default_route_table_id": "rtb-0361067541dcb24a7",
+            "default_security_group_id": "sg-0c6ae43600226e659",
+            "dhcp_options_id": "dopt-072d8179a638ae685",
+            "enable_dns_hostnames": true,
+            "enable_dns_support": true,
+            "enable_network_address_usage_metrics": false,
+            "id": "vpc-08a0ca2678f0aabef",
+            "instance_tenancy": "default",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_association_id": "",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_network_border_group": "",
+            "ipv6_ipam_pool_id": "",
+            "ipv6_netmask_length": 0,
+            "main_route_table_id": "rtb-0361067541dcb24a7",
+            "owner_id": "136191772799",
+            "region": "ap-southeast-1",
+            "tags": {
+              "Name": "self-healing-storage-ap-southeast-1-vpc"
+            },
+            "tags_all": {
+              "Name": "self-healing-storage-ap-southeast-1-vpc"
+            }
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "136191772799",
+            "id": "vpc-08a0ca2678f0aabef",
+            "region": "ap-southeast-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
