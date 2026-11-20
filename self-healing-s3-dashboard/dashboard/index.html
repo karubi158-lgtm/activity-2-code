@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Healing Storage</title>
+<style>
+  :root { --bg:#070b17; --card:rgba(255,255,255,.04); --line:rgba(255,255,255,.09); --text:#e8ecfa; --mute:#8590b5; --ok:#34d399; --bad:#fb7185; --warn:#fbbf24; --a:#38bdf8; --b:#a78bfa; }
+  * { box-sizing:border-box; }
+  body { margin:0; color:var(--text); font:14px/1.5 Inter,system-ui,"Segoe UI",sans-serif; min-height:100vh;
+         background:radial-gradient(900px 500px at 10% -10%, #12306088, transparent), radial-gradient(800px 500px at 100% 0%, #3b1d7a66, transparent), var(--bg); }
+  header { padding:20px 28px; display:flex; align-items:center; justify-content:space-between; }
+  h1 { margin:0; font-size:20px; letter-spacing:.2px; } h1 span { background:linear-gradient(90deg,var(--a),var(--b)); -webkit-background-clip:text; color:transparent; }
+  .live { font-size:12px; color:var(--ok); display:flex; gap:8px; align-items:center; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 0 #34d39988; animation:pulse 1.4s infinite; }
+  @keyframes pulse { 70% { box-shadow:0 0 0 9px #34d39900; } 100% { box-shadow:0 0 0 0 #34d39900; } }
+  main { max-width:1080px; margin:0 auto; padding:0 24px 40px; display:grid; gap:18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; backdrop-filter:blur(8px); }
+  .card h2 { margin:0 0 12px; font-size:14px; font-weight:600; color:var(--mute); text-transform:uppercase; letter-spacing:.08em; display:flex; justify-content:space-between; }
+  .tabs { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .tab { position:relative; text-align:left; color:inherit; font:inherit; cursor:pointer; border-radius:16px; padding:18px 20px; border:1px solid var(--line);
+         background:var(--card); transition:.25s; overflow:hidden; }
+  .tab::before { content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--c); }
+  .tab:hover { transform:translateY(-2px); } .tab.active { border-color:var(--c); box-shadow:0 0 30px -8px var(--c); background:linear-gradient(135deg, color-mix(in srgb,var(--c) 14%,transparent), transparent); }
+  .tab .top { display:flex; justify-content:space-between; align-items:center; font-weight:600; }
+  .tab .n { font-size:40px; font-weight:700; line-height:1.1; margin-top:6px; } .tab .n small { font-size:13px; color:var(--mute); font-weight:400; }
+  .tab.heal { animation:glow 1s infinite alternate; } @keyframes glow { to { box-shadow:0 0 34px -2px var(--warn); border-color:var(--warn); } }
+  .mute { color:var(--mute); font-size:12px; word-break:break-all; }
+  .pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:600; }
+  .ok { background:#34d39922; color:var(--ok); } .bad { background:#fb718522; color:var(--bad); } .warn { background:#fbbf2422; color:var(--warn); }
+  #drop { border:2px dashed var(--line); border-radius:14px; padding:26px; text-align:center; color:var(--mute); cursor:pointer; transition:.2s; }
+  #drop:hover,#drop.over { border-color:var(--c); color:var(--text); background:#ffffff07; transform:scale(1.005); }
+  table { width:100%; border-collapse:collapse; } th,td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { color:var(--mute); font-weight:500; font-size:11px; text-transform:uppercase; letter-spacing:.06em; }
+  tr.new { animation:flash 1.6s; } @keyframes flash { from { background:#34d39933; } }
+  tr.healing td { background:#fbbf2410; } tr.healing .fn { animation:blink 1s infinite; } @keyframes blink { 50% { opacity:.45; } }
+  .btn { background:#ffffff0d; border:1px solid var(--line); color:var(--text); border-radius:9px; padding:5px 12px; cursor:pointer; font:inherit; font-size:12px; transition:.15s; text-decoration:none; display:inline-block; }
+  .btn:hover { background:#ffffff1a; transform:translateY(-1px); } .btn.dl:hover { border-color:var(--a); color:var(--a); } .btn.force { color:var(--bad); } .btn.force:hover { background:#fb718522; border-color:var(--bad); } .btn.del:hover { border-color:var(--bad); color:var(--bad); }
+  .bar { height:4px; width:90px; background:#ffffff14; border-radius:4px; overflow:hidden; margin-top:4px; } .bar i { display:block; height:100%; width:40%; background:var(--warn); animation:slide 1s infinite linear; } @keyframes slide { from { margin-left:-40%; } to { margin-left:100%; } }
+  #log { height:230px; overflow:auto; font:12.5px ui-monospace,Consolas,monospace; background:#04070f; border-radius:12px; padding:12px; }
+  #log div { padding:2px 0; animation:in .3s; } @keyframes in { from { opacity:0; transform:translateX(-6px); } }
+  .t { color:var(--mute); } .l-bad { color:var(--bad); } .l-warn { color:var(--warn); } .l-ok { color:var(--ok); } .l-info { color:var(--a); }
+  .empty { text-align:center; color:var(--mute); padding:26px !important; }
+  @media (max-width:680px) { .tabs { grid-template-columns:1fr; } .hide-s { display:none; } }
+</style>
+</head>
+<body>
+<div id="login" style="position:fixed;inset:0;background:#070b17f2;display:none;place-items:center;z-index:9">
+  <form id="loginForm" class="card" style="width:min(360px,90vw);text-align:center">
+    <h1><span>Self-Healing</span> Storage</h1>
+    <p class="mute">Enter the access code to continue</p>
+    <input id="code" type="password" autofocus placeholder="Access code" style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#04070f;color:var(--text);font:inherit">
+    <p id="loginErr" class="l-bad" style="min-height:20px;margin:8px 0"></p>
+    <button class="btn" style="width:100%;padding:10px">Unlock</button>
+  </form>
+</div>
+<header><h1><span>Self-Healing</span> Storage</h1><div class="live"><i class="dot"></i> live · real-time</div></header>
+<main>
+  <div class="tabs">
+    <button class="tab active" id="tabA" style="--c:var(--a)"></button>
+    <button class="tab" id="tabB" style="--c:var(--b)"></button>
+  </div>
+
+  <div class="card" id="upcard">
+    <h2><span>Upload to <b id="upTo"></b></span></h2>
+    <div id="drop">⬆ Drop files here or click to choose<input type="file" id="file" multiple hidden></div>
+  </div>
+
+  <div class="card">
+    <h2><span>Live data · <b id="viewing"></b></span><span id="count"></span></h2>
+    <table>
+      <thead><tr><th>Name</th><th>Size</th><th class="hide-s">Modified</th><th>Mirror / status</th><th></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="card"><h2><span>Healing log</span></h2><div id="log"></div></div>
+</main>
+
+<script>
+let side = 'A', state = null, prev = null;
+
+const healing = {};              // "A|key" -> {start}
+const bucketGone = {};           // "A" -> start
+const fresh = new Set();
+const forced = new Set();        // keys being force-deleted (expected to vanish, don't heal)         // rows to flash
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n < 1024 ? n + ' B' : n < 1048576 ? (n/1024).toFixed(1) + ' KB' : (n/1048576).toFixed(1) + ' MB';
+const other = s => s === 'A' ? 'B' : 'A';
+const nm = (s, st = state) => `<b>Bucket ${s}</b> (${st[s].region})`;
+const secs = t => ((Date.now() - t) / 1000).toFixed(1) + 's';
+
+let CODE = localStorage.getItem('code') || '';
+const api = (path, opts = {}) => fetch(path, { ...opts, headers: { ...(opts.headers || {}), 'x-access-code': CODE } });
+function needLogin(msg) { $('login').style.display = 'grid'; $('loginErr').textContent = msg || ''; }
+$('loginForm').onsubmit = async e => { e.preventDefault(); CODE = $('code').value; const r = await api('/api/state');
+  if (r.status === 401) return needLogin('Wrong access code'); localStorage.setItem('code', CODE); $('login').style.display = 'none'; refresh(); };
+
+function log(cls, msg) {
+  const d = document.createElement('div');
+  d.innerHTML = `<span class="t">${new Date().toLocaleTimeString()}</span> <span class="l-${cls}">${msg}</span>`;
+  $('log').prepend(d);
+}
+
+function diff(cur) {
+  if (!prev) { prev = cur; return; }
+  for (const s of ['A','B']) {
+    const o = other(s), p = prev[s], c = cur[s];
+    if (p.up && !c.up) {
+      bucketGone[s] = Date.now();
+      log('bad', `🚨 Deletion detected: ${nm(s,cur)} no longer exists`);
+    }
+    if (!p.up && c.up) { log('info', `🟢 ${nm(s,cur)} is available`); delete bucketGone[s]; }
+    if (p.up && c.up) {
+      const pk = new Set(p.objects.map(x => x.key)), ck = new Set(c.objects.map(x => x.key));
+      pk.forEach(k => {
+        if (!ck.has(k) && !healing[s + '|' + k] && !forced.has(k)) {
+          healing[s + '|' + k] = { start: Date.now() };
+          log('bad', `🚨 Deletion detected: <b>${esc(k)}</b> removed from ${nm(s,cur)}`);
+          if (cur[o].objects.some(x => x.key === k)) log('warn', `📥 Copying <b>${esc(k)}</b> from ${nm(o,cur)} to ${nm(s,cur)}…`);
+          else log('warn', `⚠️ <b>${esc(k)}</b> not found in ${nm(o,cur)}, trying version history…`);
+        }
+      });
+      ck.forEach(k => {
+        const h = healing[s + '|' + k];
+        if (h) { log('ok', `✅ Recovery done: <b>${esc(k)}</b> restored in ${nm(s,cur)} in ${secs(h.start)}`); delete healing[s + '|' + k]; fresh.add(s + '|' + k); }
+        else if (!pk.has(k)) {
+          fresh.add(s + '|' + k);
+          if (cur[o].objects.some(x => x.key === k)) {
+            log('info', `🔁 <b>${esc(k)}</b> mirrored to ${nm(s,cur)}`);
+          } else log('info', `⬆️ <b>${esc(k)}</b> arrived in ${nm(s,cur)} — mirroring to ${nm(o,cur)}…`);
+        }
+      });
+    }
+  }
+  prev = cur;
+}
+
+function counter(el, to) {
+  const from = +el.dataset.v || 0; if (from === to) return;
+  el.dataset.v = to; const t0 = performance.now();
+  (function step(t) { const p = Math.min(1, (t - t0) / 350); el.textContent = Math.round(from + (to - from) * p); if (p < 1) requestAnimationFrame(step); })(t0);
+}
+
+function render() {
+  if (!state) return;
+  for (const s of ['A','B']) {
+    const b = state[s], el = $('tab' + s);
+    const busy = !b.up || Object.keys(healing).some(k => k.startsWith(s + '|'));
+    if (!el.dataset.built) { el.innerHTML = `<div class="top"><span>Bucket ${s}</span><span class="pill"></span></div><div class="n"><span class="num">0</span> <small>objects</small></div><div class="mute"></div>`; el.dataset.built = 1; }
+    const pill = el.querySelector('.pill');
+    pill.className = 'pill ' + (!b.up ? 'bad' : busy ? 'warn' : 'ok');
+    pill.textContent = !b.up ? 'MISSING' : busy ? 'recovering…' : 'healthy';
+    counter(el.querySelector('.num'), b.objects.length);
+    el.querySelector('.mute').textContent = `${b.region} · ${b.name}`;
+    el.classList.toggle('active', s === side); el.classList.toggle('heal', busy);
+  }
+  const col = side === 'A' ? 'var(--a)' : 'var(--b)';
+  $('upcard').style.setProperty('--c', col);
+  const cur = state[side], o = state[other(side)];
+  $('upTo').innerHTML = `${cur.region} (Bucket ${side})`;
+  $('viewing').innerHTML = `${cur.region} (Bucket ${side})`;
+  $('count').innerHTML = cur.up ? `<span class="pill ok">${cur.objects.length} objects</span>` : '<span class="pill bad">bucket missing</span>';
+
+  const otherKeys = new Set(o.objects.map(x => x.key));
+  const ghosts = Object.keys(healing).filter(k => k.startsWith(side + '|')).map(k => k.slice(2));
+  let html = '';
+  if (!cur.up) html = `<tr><td colspan="5" class="empty"><span class="pill bad">Bucket missing</span> ${nm(side)} does not exist</td></tr>`;
+  else {
+    html += ghosts.map(k => `<tr class="healing"><td class="fn">${esc(k)}</td><td>—</td><td class="hide-s">—</td>
+      <td><span class="pill warn">deletion detected</span><br><span class="mute">copying from Bucket ${other(side)}…</span><div class="bar"><i></i></div></td><td></td></tr>`).join('');
+    html += cur.objects.map(x => {
+      const key = side + '|' + x.key, isNew = fresh.has(key);
+      return `<tr class="${isNew ? 'new' : ''}"><td class="fn">${esc(x.key)}</td><td>${fmt(x.size)}</td><td class="hide-s">${new Date(x.modified).toLocaleString()}</td>
+        <td><span class="pill ${otherKeys.has(x.key) ? 'ok' : 'warn'}">${otherKeys.has(x.key) ? 'mirrored ✓' : 'mirroring…'}</span></td>
+        <td style="white-space:nowrap"><button class="btn dl" data-k="${encodeURIComponent(x.key)}">⬇ Download</button>
+        <button class="btn del" data-k="${encodeURIComponent(x.key)}">🗑 Delete</button>
+        <button class="btn force" data-k="${encodeURIComponent(x.key)}" title="Delete from both buckets permanently">💥 Force delete</button></td></tr>`;
+    }).join('');
+    if (!html) html = `<tr><td colspan="5" class="empty">Empty — upload something above.</td></tr>`;
+  }
+  $('rows').innerHTML = html;
+  setTimeout(() => fresh.clear(), 1700);
+}
+
+let busy = false;
+async function refresh() {
+  if (busy) return; busy = true;
+  try { const r = await api('/api/state'); if (r.status === 401) { needLogin(); busy = false; return; } state = await r.json(); diff(state); render(); } catch (e) {}
+  busy = false;
+}
+
+$('tabA').onclick = () => { side = 'A'; render(); };
+$('tabB').onclick = () => { side = 'B'; render(); };
+
+$('rows').onclick = async e => {
+  const d = e.target.closest('button.dl');
+  if (d) { const { url } = await (await api(`/api/download-url?side=${side}&key=${d.dataset.k}`)).json(); location.href = url; return; }
+  const f = e.target.closest('button.force');
+  if (f) {
+    const key = decodeURIComponent(f.dataset.k);
+    if (!confirm(`Force delete "${key}" from BOTH buckets?
+All versions are removed permanently and it will NOT be healed.`)) return;
+    forced.add(key); f.disabled = true; f.textContent = 'Deleting…';
+    log('bad', `💥 Force delete started: <b>${esc(key)}</b> (both buckets, all versions)`);
+    const r = await api(`/api/force-delete?key=${encodeURIComponent(key)}&side=A`, { method: 'POST' });
+    log(r.ok ? 'ok' : 'bad', r.ok ? `✅ Force delete done: <b>${esc(key)}</b> removed from Bucket A (${state.A.region}) and Bucket B (${state.B.region}) — will not be restored` : '❌ Force delete failed');
+    setTimeout(() => forced.delete(key), 8000); refresh(); return;
+  }
+  const b = e.target.closest('button.del'); if (!b) return;
+  const key = decodeURIComponent(b.dataset.k);
+  b.disabled = true; b.textContent = 'Deleting…';
+  log('info', `🗑️ You deleted <b>${esc(key)}</b> from ${nm(side)}`);
+  await api(`/api/delete?side=${side}&key=${encodeURIComponent(key)}`, { method: 'POST' });
+  refresh();
+};
+
+async function upload(files) {
+  for (const f of files) {
+    log('info', `⬆️ Uploading <b>${esc(f.name)}</b> to ${nm(side)}…`);
+    try {
+      const type = f.type || 'application/octet-stream';
+      const { url } = await (await api(`/api/upload-url?side=${side}&key=${encodeURIComponent(f.name)}&type=${encodeURIComponent(type)}`)).json();
+      const r = await fetch(url, { method: 'PUT', headers: { 'content-type': type }, body: f });
+      if (!r.ok) throw new Error('S3 returned ' + r.status);
+    } catch (err) { log('bad', `❌ Upload failed: ${esc(err.message)}`); }
+  }
+  refresh();
+}
+$('drop').onclick = () => $('file').click();
+$('file').onchange = e => { upload([...e.target.files]); e.target.value = ''; };
+$('drop').ondragover = e => { e.preventDefault(); $('drop').classList.add('over'); };
+$('drop').ondragleave = () => $('drop').classList.remove('over');
+$('drop').ondrop = e => { e.preventDefault(); $('drop').classList.remove('over'); upload([...e.dataTransfer.files]); };
+
+log('info', '🟢 Connected — watching both buckets in real time');
+refresh(); setInterval(refresh, 1000);
+</script>
+</body>
+</html>

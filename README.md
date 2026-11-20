@@ -9,6 +9,14 @@ A Terraform project that **protects stored data from a regional disaster or an a
 
 ---
 
+## Extra: self-healing S3 bucket pair with a live dashboard
+
+A second, object-level self-healing demo lives in [`self-healing-s3-dashboard/`](self-healing-s3-dashboard/README.md): two buckets in two regions that restore any deleted object from each other within seconds, with a live dashboard (upload, download, delete, force delete, healing log).
+
+![Dashboard](self-healing-s3-dashboard/docs/screenshots/dashboard.png)
+
+---
+
 ## What "self-healing" means in this project
 
 | Failure | How the system responds |
